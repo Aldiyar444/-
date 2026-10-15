@@ -275,6 +275,38 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
 .sim-map .banner rect{fill:var(--pun);opacity:.92}
 .sim-map .banner text{fill:#fff;stroke:none;font-size:12.5px;font-weight:800;letter-spacing:.05em}
 @media (prefers-reduced-motion: reduce){.sim-map .pulse circle.p,.sim-map .siege circle{animation:none}.sim-map .route.draw{transition:none}}
+
+.land{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:980px){.land{grid-template-columns:minmax(0,1fr)}}
+.land-map{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.land-map svg{display:block;width:100%;height:auto;background:var(--land)}
+.land-map .kzf{fill:var(--land-kz);stroke:var(--border);stroke-width:1.6}
+.land-map .seized{fill:var(--pun);fill-opacity:.55}
+.land-map .edge{stroke:var(--pun);stroke-width:2.5;stroke-dasharray:7 5}
+.land-map .edge-lbl{font:800 24px Manrope,sans-serif;fill:var(--pun);paint-order:stroke;stroke:var(--land-kz);stroke-width:4px;stroke-linejoin:round}
+.land-map .city circle{fill:var(--surface);stroke:var(--ink);stroke-width:1.8}
+.land-map .city text{font:600 19px Manrope,sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--land-kz);stroke-width:3.5px;stroke-linejoin:round}
+.land-cap{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);padding:9px 14px;border-top:1px solid var(--line)}
+.land-cap span{display:inline-flex;align-items:center;gap:6px}
+.land-cap i{display:inline-block;width:14px;height:10px;border-radius:2px}
+.seg{display:flex;gap:4px;background:var(--surface-2);border-radius:12px;padding:4px;margin-bottom:12px;flex-wrap:wrap}
+.seg button{appearance:none;flex:1;min-width:0;border:0;background:transparent;color:var(--ink-2);font:600 13.5px/1.25 Manrope,sans-serif;padding:8px 6px;border-radius:9px;cursor:pointer}
+.seg button small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.big-n{font:700 clamp(34px,4.2vw,54px)/1 Lora,serif;color:var(--pun)}
+.big-l{font-size:15px;color:var(--ink-2);margin:6px 0 12px}
+.conv{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:15px;margin:0}
+.conv dt{color:var(--muted)}
+.conv dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.fields{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.fields .fi{width:30px;height:20px;overflow:hidden;flex:none;opacity:0;transform:scale(.6)}
+.fields .fi svg{display:block;width:30px;height:20px}
+.fields .fi.show{animation:fiin .35s ease forwards}
+@keyframes fiin{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.fields .fi{opacity:1;transform:none}.fields .fi.show{animation:none}}
+.pitch{display:flex;gap:14px;align-items:center}
+.pitch svg{flex:none}
 </style>
 </head>
 <body>
@@ -447,6 +479,58 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
    </div>
   </div>
  </div>
+</section>
+
+<section class="slide" data-title="45 млн десятин — это сколько?" id="landSlide">
+ <div class="inner">
+  <div class="kicker">Земельный вопрос · наглядно</div>
+  <h2 style="margin-bottom:14px">45 млн десятин — это сколько?</h2>
+  <div class="land">
+   <div class="land-map">
+    <svg id="landMap" viewBox="0 0 1000 560" role="img" aria-label="Карта Казахстана с площадью изъятых земель"></svg>
+    <div class="land-cap">
+     <span><i style="background:var(--pun);opacity:.6"></i>изъятые земли, собранные в одном месте</span>
+     <span><i style="background:var(--land-kz);border:1px solid var(--border)"></i>современная территория Казахстана</span>
+    </div>
+   </div>
+   <div>
+    <div class="seg" role="group" aria-label="Сколько земли показать">
+     <button type="button" data-d="4000000">4 млн дес.<small>1893–1905</small></button>
+     <button type="button" data-d="17000000">17 млн дес.<small>1906–1912</small></button>
+     <button type="button" data-d="45000000" class="on">45 млн дес.<small>всего к 1916</small></button>
+    </div>
+    <div class="card">
+     <div class="big-n" id="lnFields">68,7 млн</div>
+     <div class="big-l">футбольных полей — столько земли изъяли у казахов</div>
+     <dl class="conv">
+      <dt>Десятин</dt><dd id="lnDes">45 млн</dd>
+      <dt>Гектаров</dt><dd id="lnHa">49,1 млн</dd>
+      <dt>Квадратных километров</dt><dd id="lnKm">490 500</dd>
+      <dt>Доля территории Казахстана</dt><dd id="lnPct">18 %</dd>
+      <dt>Примерно как площадь</dt><dd id="lnCmp">Туркменистана</dd>
+      <dt>Обойти по полю в секунду</dt><dd id="lnTime">2,2 года</dd>
+     </dl>
+    </div>
+   </div>
+  </div>
+  <div class="card mt">
+   <div class="pitch">
+    <svg width="60" height="40" viewBox="0 0 30 20" aria-hidden="true"><use href="#fieldIcon"/></svg>
+    <p class="small" style="margin:0"><b>1 значок = 1 млн футбольных полей.</b> Стандартное поле — 105 × 68 м = 7140 м² ≈ 0,71 га. Значит, <b>1 десятина (1,09 га) ≈ 1,5 футбольного поля</b>, а надел одного переселенца (15 десятин) ≈ 23 поля.</p>
+   </div>
+   <div class="fields" id="lnGrid" aria-hidden="true"></div>
+   <p class="tiny" style="margin:10px 0 0">Земли изымали по всему краю, больше всего на севере и в Семиречье. На карте они собраны в одну полосу, чтобы было видно, сколько это. Расчёт: 1 десятина = 1,09 га (по учебнику), 1 км² = 100 га.</p>
+  </div>
+ </div>
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fieldIcon" viewBox="0 0 30 20">
+   <rect width="30" height="20" rx="2" fill="#2f8f4e"/>
+   <g fill="none" stroke="#fff" stroke-width="0.9" opacity=".95">
+    <rect x="1.5" y="1.5" width="27" height="17"/><line x1="15" y1="1.5" x2="15" y2="18.5"/><circle cx="15" cy="10" r="3"/>
+    <rect x="1.5" y="6" width="4" height="8"/><rect x="24.5" y="6" width="4" height="8"/>
+   </g>
+  </symbol>
+ </svg>
 </section>
 
 <!-- 9 -->
@@ -1304,7 +1388,7 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
 
   /* ---------- базовая карта ---------- */
   var gBase=el('g',{},svg), gArea=el('g',{},svg), gRoute=el('g',{},svg), gMark=el('g',{},svg), gTop=el('g',{},svg);
-  var KZ=[[49.0,46.5],[48.6,47.4],[46.6,48.3],[47.3,50.3],[48.7,50.6],[48.8,51.5],[50.8,51.7],[52.5,51.5],[54.5,51.0],[55.7,50.6],[57.5,50.9],[59.5,50.6],[61.4,50.8],[61.6,51.6],[60.0,52.0],[61.0,52.9],[62.1,53.0],[61.2,53.6],[61.3,54.1],[63.2,54.2],[65.2,54.6],[68.2,55.2],[69.2,55.4],[70.8,55.3],[71.2,54.3],[73.4,54.0],[73.7,53.6],[76.2,54.3],[77.9,53.3],[80.0,51.0],[81.0,51.0],[83.0,51.0],[84.0,50.2],[85.2,49.6],[86.8,49.8],[87.3,49.1],[85.7,48.4],[85.5,47.0],[83.0,47.2],[82.3,45.5],[80.4,45.0],[79.9,44.9],[80.4,43.0],[80.2,42.1],[79.1,42.8],[76.0,42.9],[74.2,43.2],[73.5,42.5],[71.2,42.8],[70.4,42.1],[69.0,41.4],[68.0,40.7],[66.5,41.2],[66.0,42.0],[66.0,43.0],[65.0,43.7],[62.0,43.5],[61.0,44.4],[58.6,45.6],[56.0,45.0],[56.0,41.3],[55.0,41.3],[53.5,42.2],[52.9,41.9],[52.6,42.5],[51.8,42.9],[51.3,43.5],[51.2,44.1],[50.3,44.6],[51.4,45.3],[53.0,45.3],[53.1,46.0],[52.3,46.8],[51.3,47.0],[50.0,46.8]];
+  var KZ=window.KZ_POLY=[[49.0,46.5],[48.6,47.4],[46.6,48.3],[47.3,50.3],[48.7,50.6],[48.8,51.5],[50.8,51.7],[52.5,51.5],[54.5,51.0],[55.7,50.6],[57.5,50.9],[59.5,50.6],[61.4,50.8],[61.6,51.6],[60.0,52.0],[61.0,52.9],[62.1,53.0],[61.2,53.6],[61.3,54.1],[63.2,54.2],[65.2,54.6],[68.2,55.2],[69.2,55.4],[70.8,55.3],[71.2,54.3],[73.4,54.0],[73.7,53.6],[76.2,54.3],[77.9,53.3],[80.0,51.0],[81.0,51.0],[83.0,51.0],[84.0,50.2],[85.2,49.6],[86.8,49.8],[87.3,49.1],[85.7,48.4],[85.5,47.0],[83.0,47.2],[82.3,45.5],[80.4,45.0],[79.9,44.9],[80.4,43.0],[80.2,42.1],[79.1,42.8],[76.0,42.9],[74.2,43.2],[73.5,42.5],[71.2,42.8],[70.4,42.1],[69.0,41.4],[68.0,40.7],[66.5,41.2],[66.0,42.0],[66.0,43.0],[65.0,43.7],[62.0,43.5],[61.0,44.4],[58.6,45.6],[56.0,45.0],[56.0,41.3],[55.0,41.3],[53.5,42.2],[52.9,41.9],[52.6,42.5],[51.8,42.9],[51.3,43.5],[51.2,44.1],[50.3,44.6],[51.4,45.3],[53.0,45.3],[53.1,46.0],[52.3,46.8],[51.3,47.0],[50.0,46.8]];
   var CASPIAN=[[49.0,46.5],[50.0,46.8],[51.3,47.0],[52.3,46.8],[53.1,46.0],[53.0,45.3],[51.4,45.3],[50.3,44.6],[51.2,44.1],[51.3,43.5],[51.8,42.9],[52.6,42.5],[52.9,41.9],[53.0,39.5],[50.0,39.5],[49.5,40.5],[48.6,41.8],[47.6,42.9],[47.0,44.0],[47.2,45.0],[47.8,45.6],[48.4,46.1]];
   var ARAL=[[58.3,45.6],[59.0,46.6],[60.5,46.75],[61.6,46.3],[61.7,45.3],[61.0,44.2],[60.0,43.6],[58.6,43.8],[58.2,44.8]];
   var BALKHASH=[[73.4,46.55],[74.5,46.95],[76.0,46.8],[77.5,46.6],[78.9,46.8],[79.25,46.5],[78.5,46.25],[77.0,46.35],[75.6,46.4],[74.7,46.15],[74.3,45.3],[73.6,45.45],[73.45,46.1]];
@@ -1570,6 +1654,85 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
 
   window.addEventListener('resize',function(){apply();});
   apply();show(0);
+})();
+
+/* ===== 45 млн десятин на карте ===== */
+(function(){
+  var svg=document.getElementById('landMap'); if(!svg||!window.KZ_POLY) return;
+  var slide=document.getElementById('landSlide');
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var a in attrs)e.setAttribute(a,attrs[a]);if(parent)parent.appendChild(e);return e;}
+  function P(lon,lat){return [(lon-45.5)*23.45,(56-lat)*35];}
+  var pts=window.KZ_POLY.map(function(p){return P(p[0],p[1]);});
+  var minX=1e9,maxX=-1e9,minY=1e9,maxY=-1e9;
+  pts.forEach(function(p){minX=Math.min(minX,p[0]);maxX=Math.max(maxX,p[0]);minY=Math.min(minY,p[1]);maxY=Math.max(maxY,p[1]);});
+  var pad=14, W=maxX-minX+2*pad, H=maxY-minY+2*pad;
+  svg.setAttribute('viewBox',(minX-pad)+' '+(minY-pad)+' '+W+' '+H);
+  svg.style.aspectRatio=W+'/'+H;
+  var d=pts.map(function(p,i){return (i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1);}).join('')+'Z';
+  var defs=el('defs',{},svg), cp=el('clipPath',{id:'kzClipLand'},defs); el('path',{d:d},cp);
+  el('path',{d:d,class:'kzf'},svg);
+  var fill=el('rect',{x:minX-pad,y:minY-pad,width:W,height:0,class:'seized','clip-path':'url(#kzClipLand)'},svg);
+  var edge=el('line',{x1:minX,x2:maxX,y1:minY,y2:minY,class:'edge'},svg);
+  [['Петропавловск',69.15,54.87,'r'],['Кустанай',63.62,53.21,'r'],['Акмолинск (Астана)',71.43,51.17,'r'],['Семипалатинск',80.23,50.41,'r'],['Уральск',51.37,51.23,'r'],['Тургай',63.50,49.63,'r'],['Верный (Алматы)',76.89,43.24,'l'],['Перовск (Кызылорда)',65.51,44.85,'r']].forEach(function(c){
+    var q=P(c[1],c[2]);var g=el('g',{class:'city',transform:'translate('+q[0]+' '+q[1]+')'},svg);
+    el('circle',{r:5.5},g);var t=el('text',{x:c[3]==='l'?-10:10,y:6.5,'text-anchor':c[3]==='l'?'end':'start'},g);t.textContent=c[0];
+  });
+  var lbl=el('text',{class:'edge-lbl',x:maxX,y:minY,'text-anchor':'end'},svg);
+
+  function area(ps){var a=0;for(var i=0;i<ps.length;i++){var p=ps[i],q=ps[(i+1)%ps.length];a+=p[0]*q[1]-q[0]*p[1];}return Math.abs(a)/2;}
+  function above(Y){var out=[];for(var i=0;i<pts.length;i++){var a=pts[i],b=pts[(i+1)%pts.length],ai=a[1]<=Y,bi=b[1]<=Y;if(ai)out.push(a);if(ai!==bi){var t=(Y-a[1])/(b[1]-a[1]);out.push([a[0]+t*(b[0]-a[0]),Y]);}}return out;}
+  var total=area(pts);
+  function yFor(f){var lo=minY,hi=maxY;for(var i=0;i<40;i++){var m=(lo+hi)/2;if(area(above(m))/total<f)lo=m;else hi=m;}return hi;}
+
+  var KZ_KM2=2724900, FIELD_HA=0.714, DES_HA=1.09;
+  var CMP={4000000:'Дании (43 тыс. км²)',17000000:'Кыргызстана (200 тыс. км²)',45000000:'Туркменистана (491 тыс. км²)'};
+  function fmt(n,dig){return n.toLocaleString('ru-RU',{maximumFractionDigits:dig||0,minimumFractionDigits:dig||0});}
+  function mln(n){return fmt(n/1e6,1)+' млн';}
+  function dur(sec){var days=sec/86400;if(days>=365)return fmt(days/365,1)+' года';if(days>=60)return fmt(days/30.4,0)+' месяцев';return fmt(days,0)+' дней';}
+  var $=function(id){return document.getElementById(id);};
+  var grid=$('lnGrid'), anim=null, curY=minY;
+
+  function render(des,instant){
+    var ha=des*DES_HA, km=ha/100, fields=ha/FIELD_HA, frac=km/KZ_KM2;
+    $('lnDes').textContent=mln(des);$('lnHa').textContent=mln(ha);$('lnKm').textContent=fmt(Math.round(km/100)*100);
+    $('lnPct').textContent=fmt(frac*100,frac<0.05?1:0)+' %';$('lnCmp').textContent=CMP[des]||'—';$('lnTime').textContent=dur(fields);
+    // счётчик полей
+    var t0=performance.now(), D=instant?0:1300, big=$('lnFields');
+    // заливка карты
+    var targetY=yFor(frac), fromY=curY;
+    if(anim) cancelAnimationFrame(anim);
+    (function fr(now){
+      var t=D?Math.min(1,(now-t0)/D):1, e=1-Math.pow(1-t,3);
+      big.textContent=mln(fields*e);
+      var y=fromY+(targetY-fromY)*e; curY=y;
+      fill.setAttribute('height',Math.max(0,y-(minY-pad)));
+      edge.setAttribute('y1',y);edge.setAttribute('y2',y);
+      lbl.setAttribute('y',y-12);lbl.textContent='≈ '+fmt(frac*100,frac<0.05?1:0)+' % территории';
+      if(t<1) anim=requestAnimationFrame(fr);
+    })(t0);
+    // значки полей: 1 значок = 1 млн
+    grid.innerHTML='';
+    var n=fields/1e6, whole=Math.floor(n), part=n-whole;
+    for(var i=0;i<Math.ceil(n);i++){
+      var w=(i===whole&&part>0)?Math.max(4,Math.round(30*part)):30;
+      var s=document.createElement('span');s.className='fi';s.style.width=w+'px';
+      s.innerHTML='<svg viewBox="0 0 30 20"><use href="#fieldIcon"/></svg>';
+      s.style.animationDelay=(instant?0:i*18)+'ms';grid.appendChild(s);
+    }
+    requestAnimationFrame(function(){[].forEach.call(grid.children,function(c){c.classList.add('show');});});
+  }
+  var cur=45000000;
+  [].forEach.call(document.querySelectorAll('#landSlide .seg button'),function(b){
+    b.addEventListener('click',function(){
+      [].forEach.call(b.parentNode.children,function(x){x.classList.toggle('on',x===b);});
+      cur=+b.dataset.d;render(cur);
+    });
+  });
+  render(cur,true);
+  // анимация при каждом открытии слайда
+  var wasActive=slide.classList.contains('active');
+  new MutationObserver(function(){var a=slide.classList.contains('active');if(a&&!wasActive){curY=minY;render(cur);}wasActive=a;}).observe(slide,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 </body>
