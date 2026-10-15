@@ -177,6 +177,104 @@ td.d{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--surface)}
 .section-slide .inner{align-items:flex-start}
 .section-num{font:700 clamp(80px,14vw,170px)/1 Lora,serif;color:var(--gold);opacity:.9}
+
+/* ===== simulation 1916 ===== */
+:root{--reb:#1a8a63;--pun:#c4392b;--land:#efe6d2;--land-kz:#f8f1e1;--sea:#cfe3ec;--river:#7fb2c9;--china:#e7e0d0;--border:#8a6a3b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--reb:#249e72;--pun:#e0604c;--land:#24221b;--land-kz:#2d2a21;--sea:#173039;--river:#2f6278;--china:#1e1c17;--border:#b08850}}
+:root[data-theme="dark"]{--reb:#249e72;--pun:#e0604c;--land:#24221b;--land-kz:#2d2a21;--sea:#173039;--river:#2f6278;--china:#1e1c17;--border:#b08850}
+.sim{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:stretch}
+@media (max-width:980px){.sim{grid-template-columns:minmax(0,1fr)}}
+.sim-mapbox{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.sim-map{display:block;width:100%;height:auto;aspect-ratio:1000/560;background:var(--land)}
+.sim-date{position:absolute;left:14px;top:12px;background:color-mix(in srgb,var(--surface) 90%,transparent);border:1px solid var(--line);border-radius:12px;padding:6px 12px;font:700 clamp(16px,1.8vw,22px) Lora,serif;box-shadow:var(--shadow);pointer-events:none}
+.sim-date small{display:block;font:600 11.5px Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sim-views{position:absolute;right:12px;top:12px;display:flex;gap:4px;background:color-mix(in srgb,var(--surface) 90%,transparent);border:1px solid var(--line);border-radius:12px;padding:4px}
+.sim-views button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:600 13px Manrope,sans-serif;padding:6px 10px;border-radius:8px;cursor:pointer}
+.sim-views button.on{background:var(--accent);color:#fff}
+.sim-panel{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sim-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);flex:1}
+.sim-card .reg{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--accent-soft);margin-bottom:8px}
+.sim-card .reg.sem{background:var(--gold-soft)}
+.sim-card .reg.tur{background:var(--red-soft)}
+.sim-card h3{font-size:clamp(19px,1.7vw,23px)}
+.sim-card p{font-size:15px;margin:0 0 8px}
+.sim-card .nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sim-card .nums span{font-size:13px;font-weight:700;background:var(--surface-2);border-radius:8px;padding:3px 8px}
+.sim-ctrl{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.sim-ctrl .btn{height:38px}
+.sim-ctrl .play{min-width:110px;background:var(--accent);color:#fff;border-color:var(--accent)}
+.sim-step{font-size:13px;color:var(--muted);margin-left:auto}
+.sim-track{display:flex;gap:4px;margin-top:10px;align-items:flex-end}
+.sim-track button{appearance:none;flex:1;min-width:0;border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.sim-track button{height:22px;justify-content:flex-end}
+.sim-track i{display:block;width:100%;height:7px;border-radius:3px;background:var(--accent);opacity:.28;transition:height .2s,opacity .2s}
+.sim-track button.sem i{background:var(--gold)}
+.sim-track button.tur i{background:var(--pun)}
+.sim-track button.done i{opacity:.6}
+.sim-track button.cur i{opacity:1;height:14px}
+.sim-track button:hover i{opacity:.9}
+.sim-tl-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--muted)}
+.sim-tl-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--accent)}
+.sim-tl-legend .sem::before{background:var(--gold)}
+.sim-tl-legend .tur::before{background:var(--pun)}
+@media (max-width:640px){.sim-views{position:static;margin:8px 8px 0;justify-content:center}.sim-date{left:8px;top:8px;padding:4px 9px;font-size:14px}.sim-date small{font-size:10px}}
+.sim-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink-2);padding:8px 14px 10px;border-top:1px solid var(--line)}
+.sim-legend span{display:inline-flex;align-items:center;gap:6px}
+.sim-legend svg{flex:none}
+/* svg internals */
+.sim-map .kz{fill:var(--land-kz);stroke:var(--border);stroke-width:calc(var(--k,1)*1.2px);stroke-dasharray:calc(var(--k,1)*5px) calc(var(--k,1)*3px)}
+.sim-map .sea{fill:var(--sea)}
+.sim-map .china{fill:var(--china)}
+.sim-map .cnb{fill:none;stroke:var(--border);stroke-width:calc(var(--k,1)*3px);stroke-linejoin:round}
+.sim-map .river{fill:none;stroke:var(--river);stroke-width:calc(var(--k,1)*1.4px);stroke-linejoin:round;stroke-linecap:round}
+.sim-map .rail{fill:none;stroke:var(--ink);stroke-width:calc(var(--k,1)*2.2px);stroke-linejoin:round;opacity:.55}
+.sim-map .rail2{fill:none;stroke:var(--surface);stroke-width:calc(var(--k,1)*1px);stroke-dasharray:calc(var(--k,1)*5px) calc(var(--k,1)*5px);opacity:.9}
+.sim-map text{font-family:Manrope,sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:3px;stroke-linejoin:round}
+.sim-map .city text{font-size:12.5px;font-weight:600}
+.sim-map .city circle{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.sim-map .city.minor{display:none}
+.sim-map.zoomed .city.minor{display:inline}
+.sim-map .city.hl text{font-weight:800;font-size:14px}
+.sim-map .city.hl circle{fill:var(--ink)}
+.sim-map .reglbl text{font-size:12px;font-weight:700;letter-spacing:.12em;fill:var(--muted);stroke:none;font-style:italic}
+.sim-map .water text{font-size:12px;font-style:italic;fill:var(--river);stroke:none;font-weight:600}
+.sim-map .dyn{opacity:0;transition:opacity .6s ease;pointer-events:none}
+.sim-map .dyn.on{opacity:1}
+.sim-map .area{fill:var(--reb);fill-opacity:.16;stroke:var(--reb);stroke-width:calc(var(--k,1)*1.3px);stroke-dasharray:calc(var(--k,1)*4px) calc(var(--k,1)*3px)}
+.sim-map .area.big{fill-opacity:.24}
+.sim-map .route{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sim-map .route.pun{stroke:var(--pun);stroke-width:calc(var(--k,1)*3.4px)}
+.sim-map .route.reb{stroke:var(--reb);stroke-width:calc(var(--k,1)*3px)}
+.sim-map .route.draw{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s ease .2s,opacity .5s}
+.sim-map .route.draw.on{stroke-dashoffset:0}
+.sim-map .head{transition:opacity .4s ease 0s}
+.sim-map .head.on{transition:opacity .4s ease 1.7s}
+.sim-map .head.pun path{fill:var(--pun)}
+.sim-map .head.reb path{fill:var(--reb)}
+.sim-map .mover.pun{fill:var(--pun)}
+.sim-map .mover.reb{fill:var(--reb)}
+.sim-map .pulse circle.p{fill:none;stroke-width:2.5;transform-box:fill-box;transform-origin:center;animation:simpulse 1.8s ease-out infinite}
+.sim-map .pulse.warn circle.p{stroke:var(--pun)}
+.sim-map .pulse.reb circle.p{stroke:var(--reb)}
+.sim-map .pulse.ink circle.p{stroke:var(--accent)}
+.sim-map .pulse circle.c{stroke:none}
+.sim-map .pulse.warn circle.c{fill:var(--pun)}
+.sim-map .pulse.reb circle.c{fill:var(--reb)}
+.sim-map .pulse.ink circle.c{fill:var(--accent)}
+@keyframes simpulse{0%{transform:scale(.6);opacity:.95}100%{transform:scale(3.2);opacity:0}}
+.sim-map .siege circle{fill:none;stroke:var(--reb);stroke-width:3.5;stroke-dasharray:6 5;transform-box:fill-box;transform-origin:center;animation:simspin 6s linear infinite}
+@keyframes simspin{to{transform:rotate(360deg)}}
+.sim-map .battle path{stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.sim-map .battle circle{fill:var(--surface);stroke:var(--ink);stroke-width:1}
+.sim-map .gather path{fill:var(--reb);stroke:var(--surface);stroke-width:1.2}
+.sim-map .camp rect{fill:var(--pun);stroke:var(--surface);stroke-width:1.2}
+.sim-map .besieged circle{fill:none;stroke:var(--reb);stroke-width:2.6}
+.sim-map .plabel text{font-size:12px;font-weight:700}
+.sim-map .plabel.reb text{fill:var(--reb)}
+.sim-map .plabel.pun text{fill:var(--pun)}
+.sim-map .banner rect{fill:var(--pun);opacity:.92}
+.sim-map .banner text{fill:#fff;stroke:none;font-size:12.5px;font-weight:800;letter-spacing:.05em}
+@media (prefers-reduced-motion: reduce){.sim-map .pulse circle.p,.sim-map .siege circle{animation:none}.sim-map .route.draw{transition:none}}
 </style>
 </head>
 <body>
@@ -811,6 +909,53 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
  </div>
 </section>
 
+<!-- SIM -->
+<section class="slide" data-title="Симуляция восстания" id="simSlide">
+ <div class="inner">
+  <div class="kicker">Восстание 1916 года · интерактивная карта</div>
+  <h2 style="margin-bottom:14px">Симуляция: ход восстания в Семиречье и Тургае</h2>
+  <div class="sim">
+   <div class="sim-mapbox">
+    <svg class="sim-map" id="simMap" viewBox="0 0 1000 560" role="img" aria-label="Анимированная карта восстания 1916 года"></svg>
+    <div class="sim-date" id="simDate"><small id="simDateSub">шаг 1</small><span id="simDateTxt">25 июня 1916</span></div>
+    <div class="sim-views" role="group" aria-label="Масштаб карты">
+     <button type="button" data-v="all" class="on">Казахстан</button>
+     <button type="button" data-v="sem">Семиречье</button>
+     <button type="button" data-v="tur">Тургай</button>
+    </div>
+    <div class="sim-legend">
+     <span><svg width="30" height="10"><line x1="1" y1="5" x2="22" y2="5" stroke="var(--pun)" stroke-width="3.4"/><path d="M22 1 L29 5 L22 9Z" fill="var(--pun)"/></svg>каратели</span>
+     <span><svg width="30" height="10"><line x1="1" y1="5" x2="22" y2="5" stroke="var(--reb)" stroke-width="3" stroke-dasharray="5 4"/><path d="M22 1 L29 5 L22 9Z" fill="var(--reb)"/></svg>повстанцы / откочёвка</span>
+     <span><svg width="14" height="14"><path d="M7 1 L13 12 L1 12Z" fill="var(--reb)"/></svg>сбор повстанцев</span>
+     <span><svg width="14" height="14"><rect x="2" y="2" width="10" height="10" fill="var(--pun)"/></svg>каратели</span>
+     <span><svg width="14" height="14"><path d="M2 2 L12 12 M12 2 L2 12" stroke="var(--ink)" stroke-width="2.4"/></svg>сражения</span>
+     <span><svg width="22" height="12"><ellipse cx="11" cy="6" rx="10" ry="5" fill="var(--reb)" fill-opacity=".2" stroke="var(--reb)" stroke-dasharray="3 2"/></svg>районы восстания</span>
+     <span><svg width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="var(--ink)" stroke-width="2.2" opacity=".55"/><line x1="1" y1="4" x2="25" y2="4" stroke="var(--surface)" stroke-dasharray="4 4"/></svg>железные дороги</span>
+    </div>
+   </div>
+   <div class="sim-panel">
+    <div class="sim-card" aria-live="polite">
+     <span class="reg" id="simReg">Весь Казахстан</span>
+     <h3 id="simTitle">Указ о мобилизации</h3>
+     <div id="simText"></div>
+    </div>
+    <div class="sim-card" style="flex:none;padding:12px 14px">
+     <div class="sim-ctrl">
+      <button class="btn" type="button" id="simPrev" aria-label="Предыдущее событие">◀</button>
+      <button class="btn play" type="button" id="simPlay">▶ Запуск</button>
+      <button class="btn" type="button" id="simNext" aria-label="Следующее событие">▶</button>
+      <button class="btn" type="button" id="simReset" title="С начала" aria-label="С начала">↺</button>
+      <span class="sim-step" id="simStep">1 / 14</span>
+     </div>
+     <div class="sim-track" id="simTrack"></div>
+     <div class="sim-tl-legend"><span>весь край</span><span class="sem">Семиречье</span><span class="tur">Тургай</span></div>
+    </div>
+   </div>
+  </div>
+  <p class="tiny" style="margin-top:10px">Схематичная карта по материалам учебников: маршруты отрядов и места сражений показаны приблизительно. Нажмите «Запуск» или выбирайте события на шкале.</p>
+ </div>
+</section>
+
 <!-- 31 -->
 <section class="slide" data-title="Восстание в Семиречье">
  <div class="inner">
@@ -1134,6 +1279,297 @@ kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-
 
   var start=parseInt((location.hash||'').slice(1),10);
   go(isNaN(start)?0:start-1);
+})();
+
+/* ===== Симуляция восстания 1916 года ===== */
+(function(){
+  var svg=document.getElementById('simMap'); if(!svg) return;
+  var slide=document.getElementById('simSlide');
+  var NS='http://www.w3.org/2000/svg';
+  function P(lon,lat){return [(lon-45.5)*23.45,(56-lat)*35];}
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var a in attrs)if(attrs[a]!=null)e.setAttribute(a,attrs[a]);if(parent)parent.appendChild(e);return e;}
+  function lin(pts,close){return pts.map(function(p,i){var q=P(p[0],p[1]);return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}).join('')+(close?'Z':'');}
+  function smooth(pts){
+    var q=pts.map(function(p){return P(p[0],p[1]);});
+    var f=function(v){return v[0].toFixed(1)+' '+v[1].toFixed(1);};
+    var d='M'+f(q[0]);
+    if(q.length===2) return d+'L'+f(q[1]);
+    for(var i=0;i<q.length-1;i++){
+      var p0=q[i-1]||q[i],p1=q[i],p2=q[i+1],p3=q[i+2]||p2;
+      d+='C'+f([p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6])+' '+f([p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6])+' '+f(p2);
+    }
+    return d;
+  }
+  function R(a,b){var r=[];for(var i=a;i<=b;i++)r.push(i);return r;}
+
+  /* ---------- базовая карта ---------- */
+  var gBase=el('g',{},svg), gArea=el('g',{},svg), gRoute=el('g',{},svg), gMark=el('g',{},svg), gTop=el('g',{},svg);
+  var KZ=[[49.0,46.5],[48.6,47.4],[46.6,48.3],[47.3,50.3],[48.7,50.6],[48.8,51.5],[50.8,51.7],[52.5,51.5],[54.5,51.0],[55.7,50.6],[57.5,50.9],[59.5,50.6],[61.4,50.8],[61.6,51.6],[60.0,52.0],[61.0,52.9],[62.1,53.0],[61.2,53.6],[61.3,54.1],[63.2,54.2],[65.2,54.6],[68.2,55.2],[69.2,55.4],[70.8,55.3],[71.2,54.3],[73.4,54.0],[73.7,53.6],[76.2,54.3],[77.9,53.3],[80.0,51.0],[81.0,51.0],[83.0,51.0],[84.0,50.2],[85.2,49.6],[86.8,49.8],[87.3,49.1],[85.7,48.4],[85.5,47.0],[83.0,47.2],[82.3,45.5],[80.4,45.0],[79.9,44.9],[80.4,43.0],[80.2,42.1],[79.1,42.8],[76.0,42.9],[74.2,43.2],[73.5,42.5],[71.2,42.8],[70.4,42.1],[69.0,41.4],[68.0,40.7],[66.5,41.2],[66.0,42.0],[66.0,43.0],[65.0,43.7],[62.0,43.5],[61.0,44.4],[58.6,45.6],[56.0,45.0],[56.0,41.3],[55.0,41.3],[53.5,42.2],[52.9,41.9],[52.6,42.5],[51.8,42.9],[51.3,43.5],[51.2,44.1],[50.3,44.6],[51.4,45.3],[53.0,45.3],[53.1,46.0],[52.3,46.8],[51.3,47.0],[50.0,46.8]];
+  var CASPIAN=[[49.0,46.5],[50.0,46.8],[51.3,47.0],[52.3,46.8],[53.1,46.0],[53.0,45.3],[51.4,45.3],[50.3,44.6],[51.2,44.1],[51.3,43.5],[51.8,42.9],[52.6,42.5],[52.9,41.9],[53.0,39.5],[50.0,39.5],[49.5,40.5],[48.6,41.8],[47.6,42.9],[47.0,44.0],[47.2,45.0],[47.8,45.6],[48.4,46.1]];
+  var ARAL=[[58.3,45.6],[59.0,46.6],[60.5,46.75],[61.6,46.3],[61.7,45.3],[61.0,44.2],[60.0,43.6],[58.6,43.8],[58.2,44.8]];
+  var BALKHASH=[[73.4,46.55],[74.5,46.95],[76.0,46.8],[77.5,46.6],[78.9,46.8],[79.25,46.5],[78.5,46.25],[77.0,46.35],[75.6,46.4],[74.7,46.15],[74.3,45.3],[73.6,45.45],[73.45,46.1]];
+  var ZAISAN=[[83.2,48.1],[83.8,48.25],[84.7,48.05],[84.2,47.85],[83.4,47.9]];
+  var ISSYK=[[76.2,42.6],[77.0,42.85],[78.0,42.75],[78.45,42.5],[77.6,42.25],[76.6,42.3]];
+  var CNB=[[87.3,49.1],[85.7,48.4],[85.5,47.0],[83.0,47.2],[82.3,45.5],[80.4,45.0],[79.9,44.9],[80.4,43.0],[80.2,42.1],[78.2,41.3],[76.5,40.5],[75.0,40.2],[74.0,39.6]];
+  var CHINA=CNB.concat([[74.0,39.0],[89.5,39.0],[89.5,49.6]]);
+  el('path',{d:lin(CHINA,true),class:'china'},gBase);
+  el('path',{d:lin(KZ,true),class:'kz'},gBase);
+  el('path',{d:lin(CASPIAN,true),class:'sea'},gBase);
+  [ARAL,BALKHASH,ZAISAN,ISSYK].forEach(function(w){el('path',{d:lin(w,true),class:'sea'},gBase);});
+  [
+    [[68.9,40.8],[68.6,42.0],[67.8,43.5],[66.5,44.4],[65.5,44.85],[64.0,45.3],[62.1,45.76],[61.3,46.1]],
+    [[80.5,43.95],[79.0,43.9],[77.3,43.85],[76.0,44.6],[75.0,45.3],[74.5,45.7]],
+    [[83.2,48.4],[82.6,49.95],[81.3,50.4],[80.2,50.4],[78.4,51.4],[76.95,52.3],[75.0,53.6],[73.4,55.0],[73.5,56.2]],
+    [[64.8,51.8],[63.8,50.6],[63.45,49.6],[62.5,48.6],[61.8,47.9]],
+    [[55.1,51.8],[53.0,51.4],[51.4,51.25],[51.6,50.0],[51.9,48.5],[51.9,47.1]]
+  ].forEach(function(r){el('path',{d:smooth(r),class:'river'},gBase);});
+  el('path',{d:smooth(CNB),class:'cnb'},gBase);
+  var RAILS=[
+    [[55.10,51.77],[57.17,50.28],[57.5,49.4],[58.5,48.5],[59.62,47.83],[61.67,46.80],[62.10,45.76],[63.5,45.3],[65.51,44.85],[67.0,44.0],[68.25,43.30],[68.8,42.45],[69.24,41.30]],
+    [[61.4,55.16],[63.6,55.0],[66.0,54.9],[69.15,54.87],[71.5,55.0],[73.37,54.98],[76.5,55.1]]
+  ];
+  RAILS.forEach(function(r){var d=lin(r);el('path',{d:d,class:'rail'},gBase);el('path',{d:d,class:'rail2'},gBase);});
+
+  /* масштабируемые подписи и значки: всегда одинакового размера на экране */
+  var scs=[];
+  function sc(lon,lat,parent,cls,rot){var q=P(lon,lat);var g=el('g',{class:'sc '+(cls||'')},parent);g._x=q[0];g._y=q[1];g._r=rot||0;scs.push(g);return g;}
+  function txt(g,s,pos,extraDy){
+    var o={r:[7,4.5,'start'],l:[-7,4.5,'end'],t:[0,-8,'middle'],b:[0,16,'middle']}[pos||'r'];
+    var t=el('text',{x:o[0],y:o[1]+(extraDy||0),'text-anchor':o[2]},g);t.textContent=s;return t;
+  }
+  [['ТУРГАЙСКАЯ ОБЛ.',61.6,51.6],['УРАЛЬСКАЯ ОБЛ.',52.3,49.3],['АКМОЛИНСКАЯ ОБЛ.',72.6,50.2],['СЕМИПАЛАТИНСКАЯ ОБЛ.',79.6,48.9],['СЕМИРЕЧЕНСКАЯ ОБЛ.',76.3,45.1],['СЫРДАРЬИНСКАЯ ОБЛ.',66.6,46.0],['КИТАЙ',85.8,44.3]].forEach(function(r){
+    var g=sc(r[1],r[2],gBase,'reglbl');txt(g,r[0],'t',4);
+  });
+  [['Каспийское море',48.9,43.6],['Аральское море',59.9,45.25],['оз. Балхаш',76.2,47.25],['Иссык-Куль',77.3,42.0]].forEach(function(r){
+    var g=sc(r[1],r[2],gBase,'water');txt(g,r[0],'t',4);
+  });
+
+  var CITY={
+    'Оренбург':[55.10,51.77,0,'r'],'Уральск':[51.37,51.23,0,'r'],'Гурьев':[51.88,47.11,0,'r'],'Актюбинск':[57.17,50.28,0,'r'],
+    'Челкар':[59.62,47.83,0,'r'],'Иргиз':[61.26,48.62,1,'l'],'Тургай':[63.50,49.63,0,'l'],'Кустанай':[63.62,53.21,0,'r'],
+    'Аральск':[61.67,46.80,1,'r'],'Казалинск':[62.10,45.76,0,'r'],'Перовск':[65.51,44.85,0,'r'],'Туркестан':[68.25,43.30,0,'l'],
+    'Черняев':[69.60,42.32,1,'l'],'Ташкент':[69.24,41.30,0,'l'],'Аулие-Ата':[71.37,42.90,0,'t'],'Мерке':[73.18,42.87,1,'b'],
+    'Пишпек':[74.59,42.87,1,'b'],'Токмак':[75.29,42.84,1,'r'],'Верный':[76.89,43.24,0,'t'],'Пржевальск':[78.39,42.49,1,'b'],
+    'Джаркент':[80.00,44.16,0,'r'],'Капал':[79.08,45.12,1,'l'],'Лепсинск':[80.62,45.53,1,'r'],'Сергиополь':[80.44,47.97,1,'r'],
+    'Семипалатинск':[80.23,50.41,0,'r'],'Усть-Каменогорск':[82.61,49.95,1,'r'],'Каркаралинск':[75.47,49.41,1,'r'],
+    'Акмолинск':[71.43,51.17,0,'r'],'Атбасар':[68.36,51.81,1,'l'],'Кокчетав':[69.38,53.28,1,'r'],'Петропавловск':[69.15,54.87,0,'r'],
+    'Омск':[73.37,54.98,0,'r'],'Павлодар':[76.95,52.29,1,'r']
+  };
+  var cityEl={};
+  Object.keys(CITY).forEach(function(n){
+    var c=CITY[n];var g=sc(c[0],c[1],gTop,'city'+(c[2]?' minor':''));
+    el('circle',{r:3.2},g);txt(g,n,c[3]);cityEl[n]=g;
+  });
+
+  /* ---------- динамические элементы ---------- */
+  var dyn=[], dashed=[], movers=[];
+  function reg(e,steps){e.classList.add('dyn');e._s=steps;dyn.push(e);return e;}
+  function area(lon,lat,rx,ry,steps,big){var c=P(lon,lat);return reg(el('ellipse',{cx:c[0],cy:c[1],rx:rx*23.45,ry:ry*35,class:'area'+(big?' big':'')},gArea),steps);}
+  function pulse(lon,lat,cls,steps){var g=sc(lon,lat,gMark,'pulse '+cls);el('circle',{r:6,class:'p'},g);el('circle',{r:4,class:'c'},g);return reg(g,steps);}
+  function siege(lon,lat,steps){var g=sc(lon,lat,gMark,'siege');el('circle',{r:17},g);return reg(g,steps);}
+  function battle(lon,lat,steps){var g=sc(lon,lat,gMark,'battle');el('circle',{r:8},g);el('path',{d:'M-5 -5L5 5M5 -5L-5 5'},g);return reg(g,steps);}
+  function gather(lon,lat,steps){var g=sc(lon,lat,gMark,'gather');el('path',{d:'M0 -7L6.5 5H-6.5Z'},g);return reg(g,steps);}
+  function camp(lon,lat,steps){var g=sc(lon,lat,gMark,'camp');el('rect',{x:-5.5,y:-5.5,width:11,height:11},g);return reg(g,steps);}
+  function ring(lon,lat,steps){var g=sc(lon,lat,gMark,'besieged');el('circle',{r:9},g);return reg(g,steps);}
+  function label(lon,lat,s,cls,steps,pos,dy){var g=sc(lon,lat,gTop,'plabel '+cls);txt(g,s,pos,dy);return reg(g,steps);}
+  function banner(lon,lat,s,steps){var g=sc(lon,lat,gTop,'banner');var w=s.length*8.2+20;el('rect',{x:-w/2,y:-12,width:w,height:24,rx:6},g);var t=el('text',{x:0,y:4.5,'text-anchor':'middle'},g);t.textContent=s;return reg(g,steps);}
+  function route(type,pts,steps){
+    var d=smooth(pts);
+    var p=el('path',{d:d,class:'route '+type+(type==='pun'?' draw':''),pathLength:type==='pun'?1:null},gRoute);
+    if(type!=='pun')dashed.push(p);
+    reg(p,steps);
+    var L=p.getTotalLength(), a=p.getPointAtLength(Math.max(0,L-3)), b=p.getPointAtLength(L);
+    var ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
+    var h=el('g',{class:'sc head '+type},gRoute);h._x=b.x;h._y=b.y;h._r=ang;scs.push(h);
+    el('path',{d:'M-11 -6.5L3 0L-11 6.5Z'},h);reg(h,steps);
+    var m=type==='pun'?el('rect',{class:'mover pun'},gRoute):el('circle',{class:'mover reb'},gRoute);
+    var am=el('animateMotion',{dur:(2.2+L/260).toFixed(1)+'s',repeatCount:'indefinite',path:d},m);
+    movers.push(m);reg(m,steps);
+    return p;
+  }
+  function hl(name,steps){var g=cityEl[name];g._hl=steps;}
+
+  // 0 — указ
+  ['Уральск','Тургай','Акмолинск','Семипалатинск','Верный','Ташкент','Перовск'].forEach(function(n){var c=CITY[n];pulse(c[0],c[1],'ink',[0]);});
+  // 1 — районы восстания
+  area(64.0,49.9,2.4,1.3,R(1,13),true);
+  area(76.4,43.25,1.6,0.42,R(1,7));
+  area(78.9,42.85,0.9,0.42,R(1,7));
+  area(79.7,44.6,0.9,0.55,R(1,7));
+  area(80.7,45.55,0.6,0.3,R(1,7));
+  area(72.4,42.95,1.0,0.32,R(1,7));
+  area(70.3,50.9,2.0,0.9,R(1,13));
+  area(76.6,49.3,1.3,0.55,R(1,8));
+  area(83.4,47.6,0.9,0.4,R(1,8));
+  area(55.0,49.6,1.2,0.6,R(1,13));
+  area(68.6,43.6,0.8,0.4,R(1,8));
+  pulse(63.5,49.63,'reb',[1]);pulse(77.5,43.1,'reb',[1]);
+  // 2 — Каркара
+  pulse(79.1,42.95,'reb',[2]);gather(79.1,42.95,R(2,6));label(79.1,42.95,'Каркара','reb',R(2,7),'r');
+  // 3 — Семиречье поднимается
+  gather(77.9,43.35,R(3,6));label(77.9,43.35,'Асы','reb',R(3,6),'t');
+  gather(76.45,43.12,R(3,6));label(76.45,43.12,'Ушконыр','reb',R(3,6),'b');
+  gather(75.95,43.05,R(3,6));label(75.95,43.05,'Кастек','reb',R(3,6),'l');
+  route('reb',[[79.1,42.95],[78.8,42.65],[78.5,42.52]],[3]);
+  route('reb',[[75.95,43.05],[75.6,42.95],[75.36,42.87]],[3]);
+  route('reb',[[79.2,44.75],[79.6,44.4],[79.95,44.22]],[3]);
+  ['Токмак','Пржевальск','Джаркент','Лепсинск'].forEach(function(n){var c=CITY[n];ring(c[0],c[1],R(3,4));});
+  // 4 — военное положение
+  banner(77.4,46.0,'ВОЕННОЕ ПОЛОЖЕНИЕ · 17 ИЮЛЯ',[4]);
+  pulse(76.89,43.24,'warn',[4]);pulse(69.24,41.30,'warn',[4]);
+  // 5–6 — каратели
+  route('pun',[[69.24,41.30],[69.6,42.32],[71.37,42.90],[73.18,42.87],[74.59,42.87],[75.29,42.84],[76.3,43.1],[76.89,43.24]],R(5,6));
+  route('pun',[[80.23,50.41],[80.3,49.2],[80.44,47.97],[79.6,46.6],[79.08,45.12],[79.6,44.6],[80.0,44.16]],R(5,6));
+  route('pun',[[80.44,47.97],[81.0,46.7],[80.62,45.53]],R(5,6));
+  route('pun',[[76.89,43.24],[77.7,43.0],[78.39,42.49]],[6]);
+  camp(76.89,43.24,R(5,7));camp(79.08,45.12,R(5,7));camp(80.0,44.16,R(6,7));camp(69.24,41.30,R(5,6));
+  label(72.6,44.2,'до 20 тыс. карателей','pun',[5],'t');
+  [[75.6,42.95],[78.0,42.7],[79.6,44.4],[80.4,45.3],[76.4,43.2],[73.5,42.9]].forEach(function(b){battle(b[0],b[1],[6]);});
+  label(76.89,43.24,'казнь Б. Ашекеева','pun',[6],'l',-14);
+  // 7 — уход в Китай
+  route('reb',[[78.39,42.49],[79.2,42.3],[80.6,42.2],[81.7,42.4]],[7]);
+  route('reb',[[79.1,42.95],[80.2,43.1],[81.5,43.4]],[7]);
+  route('reb',[[80.0,44.16],[80.9,44.3],[82.0,44.55]],[7]);
+  route('reb',[[80.62,45.53],[81.6,45.75],[82.7,45.95]],[7]);
+  label(81.8,43.0,'≈ 300 тыс. — в Китай','reb',[7],'r');
+  // 8–9 — Тургай
+  [[64.6,50.4],[65.5,49.85],[63.9,48.85],[62.7,50.4],[65.0,48.7]].forEach(function(g){gather(g[0],g[1],R(8,9));});
+  label(65.5,49.85,'отряды А. Иманова','reb',[8],'r');
+  route('reb',[[65.6,50.6],[64.6,50.1],[63.65,49.7]],[9]);
+  route('reb',[[65.2,48.6],[64.3,49.1],[63.6,49.55]],[9]);
+  route('reb',[[62.4,50.7],[62.9,50.1],[63.4,49.72]],[9]);
+  route('reb',[[62.9,48.7],[63.2,49.2],[63.45,49.55]],[9]);
+  siege(63.5,49.63,[9]);
+  label(63.5,49.63,'≈ 15 тыс. повстанцев','reb',[9],'b',14);
+  hl('Тургай',R(8,12));
+  // 10 — каратели идут к Тургаю
+  route('pun',[[55.10,51.77],[57.17,50.28],[59.5,50.05],[61.8,49.8],[63.4,49.66]],R(10,11));
+  route('pun',[[63.62,53.21],[63.95,52.0],[63.7,50.8],[63.52,49.75]],R(10,11));
+  route('pun',[[59.62,47.83],[61.26,48.62],[62.6,49.2],[63.42,49.58]],R(10,11));
+  camp(63.62,53.21,R(10,12));camp(59.62,47.83,R(10,12));camp(57.17,50.28,R(10,12));
+  label(59.3,51.2,'отряды Лаврентьева и Макарова','pun',[10],'t');
+  route('reb',[[63.5,49.63],[64.4,49.85],[65.15,50.15]],[10]);
+  label(65.2,50.15,'Батпаккара','reb',R(10,13),'r');
+  // 11 — курултай
+  pulse(64.7,49.3,'reb',[11]);label(64.7,49.3,'курултай 21 ноября','reb',[11],'b',4);
+  // 12 — партизанская война
+  [[65.0,50.55],[65.75,49.7],[64.3,48.85],[66.3,50.25]].forEach(function(b){battle(b[0],b[1],R(12,13));});
+  route('reb',[[69.9,50.9],[68.0,50.75],[66.4,50.4]],[12]);
+  label(69.9,50.9,'Р. Мадин, Я. Латута','reb',[12],'r');
+  label(65.8,49.25,'партизанская война','reb',[12],'r');
+  // 13 — итог
+  pulse(64.0,49.9,'reb',[13]);
+  label(64.0,48.6,'Тургайский очаг не разгромлен','reb',[13],'b',6);
+
+  /* ---------- шаги ---------- */
+  var STEPS=[
+    {d:'25 июня 1916',t:'25.06',r:'all',v:'all',h:'Указ о мобилизации',
+     x:'<p>Николай II подписал указ о привлечении «инородческого» мужского населения <b>от 19 до 43 лет</b> на тыловые работы: рыть окопы и строить дороги у фронта.</p><p>Из Казахстана планировали призвать около <b>500 тыс.</b> человек. Весть об указе вызвала волнения во всех областях.</p>',n:['19–43 года','≈ 500 тыс.']},
+    {d:'Июль 1916',t:'июль',r:'all',v:'all',h:'Волнения охватывают весь край',
+     x:'<p>Шаруа отказывались идти на призывные пункты, уничтожали списки призывников, нападали на волостных управителей и карательные отряды, разбирали рельсы.</p><p>Стихийное движение переросло в вооружённое восстание. Крупнейшие очаги — <b>Семиречье</b> и <b>Тургай</b>.</p>'},
+    {d:'11 июля 1916',t:'11.07',r:'sem',v:'sem',h:'Собрание в Каркаре',
+     x:'<p>Представители рода албан во главе с <b>Узаком Саурыковым</b> и <b>Жаменке Мамбетовым</b> единогласно решили «не давать джигитов» по указу царя.</p><p>Участников собрания арестовали, лидеры погибли в заключении. Это ещё сильнее возмутило народ.</p>'},
+    {d:'Июль — август 1916',t:'июль–авг.',r:'sem',v:'sem',h:'Семиречье поднимается',
+     x:'<p>Восстали волости в Асы, Ушконыре, Кастеке и других местах. Лозунг: <i>«Мы не дадим солдат царю, будем воевать вместе!»</i></p><p>Вместе с казахами выступили киргизы, уйгуры и дунгане. Повстанцы рвали телеграфные линии и окружали посёлки. Лидеры — <b>Т. Бокин</b>, <b>Б. Ашекеев</b>, <b>У. Саурыков</b>, <b>Ж. Мамбетов</b>.</p>'},
+    {d:'17 июля 1916',t:'17.07',r:'sem',v:'sem',h:'Военное положение',
+     x:'<p>Чтобы подавить восстание, царское правительство ввело <b>военное положение</b> в Семиречье и Туркестанском крае.</p>'},
+    {d:'12 августа 1916',t:'12.08',r:'sem',v:'sem',h:'Каратели и военно-полевой суд',
+     x:'<p>Военный губернатор Семиреченской области создал <b>военно-полевой суд</b>. Против повстанцев сняли войска с фронта. Отряды двигались из Ташкента через Аулие-Ату к Верному и из Семипалатинска через Сергиополь к Капалу и Джаркенту.</p><p>Численность карателей доходила до <b>20 тыс.</b> человек, вооружённые отряды создавали и крестьяне-переселенцы.</p>',n:['до 20 тыс. карателей']},
+    {d:'Август — сентябрь 1916',t:'авг.–сен.',r:'sem',v:'sem',h:'Сражения и расправы',
+     x:'<p>Повстанцы с копьями, саблями и ружьями сражались с регулярными войсками. Погибли десятки тысяч человек.</p><p><b>Бекболата Ашекеева</b>, которого народ провозгласил ханом, в сентябре приговорили к смертной казни в г. Верном. В Туркестанском крае к смерти приговорили 347 человек, к каторге — 168.</p>',n:['347 — к смертной казни','168 — к каторге']},
+    {d:'Сентябрь — октябрь 1916',t:'окт.',r:'sem',v:'sem',h:'Исход в Китай',
+     x:'<p>Спасаясь от карателей, около <b>300 тыс.</b> казахов откочевали в Китай. В октябре восстание в Семиречье было подавлено.</p><p>Доля казахов резко сократилась: в Жаркентском уезде до 73 %, в Лепсинском до 47 %, в Верненском до 45 %.</p>',n:['≈ 300 тыс. ушли в Китай']},
+    {d:'Осень 1916',t:'осень',r:'tur',v:'tur',h:'Тургайская степь собирает силы',
+     x:'<p>Восстание в Тургае было самым <b>организованным</b>. Во главе — <b>Амангельды Иманов</b> и <b>Абдигапар Жанбосынулы</b>.</p><p>Армию делили на десятки, сотни и тысячи (онбасы, елубасы, жүзбасы, мыңбасы). Отряд стрелков-мергенов возглавил <b>Кейки батыр</b>.</p>'},
+    {d:'22 октября 1916',t:'22.10',r:'tur',v:'tur',h:'Осада Тургая',
+     x:'<p>Около <b>15 тыс.</b> повстанцев окружили город Тургай. Осада длилась около 10 дней, но взять город не удалось.</p>',n:['≈ 15 тыс. сабель','≈ 10 дней']},
+    {d:'Ноябрь 1916',t:'нояб.',r:'tur',v:'tur',h:'Каратели спешат на помощь',
+     x:'<p>На помощь гарнизону пришли карательные отряды генералов <b>Лаврентьева</b> и <b>Макарова</b>, в том числе войска с фронта. Их перебрасывали по железной дороге Оренбург — Ташкент.</p><p>Осаду сняли, повстанцы ушли в сторону <b>Батпаккары</b>, Аккума и Догал-Урпека.</p>'},
+    {d:'21 ноября 1916',t:'21.11',r:'tur',v:'tur',h:'Курултай 13 волостей',
+     x:'<p>Ханом восставших избрали <b>Абдигапара Жанбосынулы</b>, сардаром (главнокомандующим) — <b>Амангельды Иманова</b>.</p><p>Действовал военный совет «Кеңес», ввели казначеев (қазынашы), сбор налогов, почту, кузницы для оружия. К 26 ноября восставших было уже <b>50 тыс.</b></p>',n:['хан — А. Жанбосынулы','сардар — А. Иманов','50 тыс. повстанцев']},
+    {d:'Ноябрь 1916 — февраль 1917',t:'зима',r:'tur',v:'tur',h:'Партизанская война',
+     x:'<p>Сарбазы перешли к партизанской борьбе: атаковали лавиной, высылали разведку и караулы. Бои шли у Батпаккары, Кумкешу, Куйика, Догала.</p><p>В Тургайскую степь пришли и акмолинские повстанцы <b>Р. Мадина</b> и <b>Я. Латуты</b> (до 30 тыс. человек).</p>'},
+    {d:'Февраль 1917',t:'фев. 1917',r:'all',v:'all',h:'Итоги',
+     x:'<p>Каратели так и не разгромили Тургайский очаг: восстание продолжалось до <b>Февральской революции</b> и слилось с ней.</p><p>Причины поражения — разрозненность, отсутствие единого центра, слабое вооружение. Но восстание охватило весь Казахстан и стало важным этапом национально-освободительной борьбы.</p>'}
+  ];
+  var REG={all:'Весь Казахстан',sem:'Семиречье',tur:'Тургайская область'};
+
+  /* ---------- масштаб ---------- */
+  var VIEWS={all:[0,0,1000,560],sem:fit(70.3,82.8,41.4,47.2),tur:fit(54.6,71.6,46.9,54.7)};
+  function fit(l0,l1,b0,b1){var a=P(l0,b1),b=P(l1,b0);var w=b[0]-a[0],h=b[1]-a[1],cx=(a[0]+b[0])/2,cy=(a[1]+b[1])/2;var ar=1000/560;if(w/h<ar)w=h*ar;else h=w/ar;return [cx-w/2,cy-h/2,w,h];}
+  var vb=VIEWS.all.slice(), anim=null;
+  function apply(){
+    svg.setAttribute('viewBox',vb.map(function(v){return v.toFixed(2);}).join(' '));
+    var k=vb[2]/1000;
+    svg.style.setProperty('--k',k);
+    var rw=svg.getBoundingClientRect().width, boost=rw>0?Math.min(1.8,Math.max(1,760/rw)):1;
+    svg.classList.toggle('zoomed',k<0.75);
+    for(var i=0;i<scs.length;i++){var g=scs[i];g.setAttribute('transform','translate('+g._x.toFixed(1)+' '+g._y.toFixed(1)+')'+(g._r?' rotate('+g._r.toFixed(1)+')':'')+' scale('+(k*boost).toFixed(4)+')');}
+    var da=(7*k).toFixed(2)+' '+(5*k).toFixed(2);
+    dashed.forEach(function(p){p.setAttribute('stroke-dasharray',da);});
+    movers.forEach(function(m){
+      if(m.tagName==='rect'){var s=9*k;m.setAttribute('width',s);m.setAttribute('height',s);m.setAttribute('x',-s/2);m.setAttribute('y',-s/2);}
+      else m.setAttribute('r',4.6*k);
+    });
+  }
+  var curView='all';
+  function zoom(v,instant){
+    curView=v;
+    [].forEach.call(document.querySelectorAll('.sim-views button'),function(b){b.classList.toggle('on',b.dataset.v===v);});
+    var from=vb.slice(), to=VIEWS[v];
+    if(anim) cancelAnimationFrame(anim);
+    if(instant||matchMedia('(prefers-reduced-motion: reduce)').matches){vb=to.slice();apply();return;}
+    var t0=performance.now(), D=1100;
+    (function fr(now){var t=Math.min(1,(now-t0)/D);var e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      for(var i=0;i<4;i++) vb[i]=from[i]+(to[i]-from[i])*e;
+      apply(); if(t<1) anim=requestAnimationFrame(fr);})(t0);
+  }
+  [].forEach.call(document.querySelectorAll('.sim-views button'),function(b){b.addEventListener('click',function(){stop();zoom(b.dataset.v);});});
+
+  /* ---------- шаг ---------- */
+  var cur=0, timer=null;
+  var $=function(id){return document.getElementById(id);};
+  var track=$('simTrack');
+  STEPS.forEach(function(s,i){
+    var b=document.createElement('button');b.type='button';b.title=s.d+' — '+s.h;
+    b.innerHTML='<i></i>';b.className=s.r;b.setAttribute('aria-label',s.d+': '+s.h);b.addEventListener('click',function(){stop();show(i);});track.appendChild(b);
+  });
+  function show(i){
+    cur=Math.max(0,Math.min(STEPS.length-1,i));var s=STEPS[cur];
+    dyn.forEach(function(e){
+      var on=e._s.indexOf(cur)>=0;
+      if(on&&!e.classList.contains('on')&&e.classList.contains('draw')){ // перезапуск анимации линии
+        e.style.transition='none';e.classList.remove('on');e.getBoundingClientRect();e.style.transition='';
+      }
+      e.classList.toggle('on',on);
+    });
+    Object.keys(cityEl).forEach(function(n){var g=cityEl[n];g.classList.toggle('hl',!!(g._hl&&g._hl.indexOf(cur)>=0));});
+    $('simDateTxt').textContent=s.d;$('simDateSub').textContent='событие '+(cur+1)+' из '+STEPS.length;
+    var rg=$('simReg');rg.textContent=REG[s.r];rg.className='reg '+s.r;
+    $('simTitle').textContent=s.h;
+    $('simText').innerHTML=s.x+(s.n?'<div class="nums">'+s.n.map(function(v){return '<span>'+v+'</span>';}).join('')+'</div>':'');
+    $('simStep').textContent=(cur+1)+' / '+STEPS.length;
+    [].forEach.call(track.children,function(b,k){b.classList.toggle('cur',k===cur);b.classList.toggle('done',k<cur);});
+    if(s.v!==curView) zoom(s.v);
+  }
+  function stop(){if(timer){clearInterval(timer);timer=null;}$('simPlay').textContent='▶ Запуск';}
+  function play(){
+    if(timer){stop();return;}
+    if(cur>=STEPS.length-1) show(0);
+    $('simPlay').textContent='❚❚ Пауза';
+    timer=setInterval(function(){
+      if(!slide.classList.contains('active')){stop();return;}
+      if(cur>=STEPS.length-1){stop();return;}
+      show(cur+1);
+    },6500);
+  }
+  $('simPlay').addEventListener('click',play);
+  $('simPrev').addEventListener('click',function(){stop();show(cur-1);});
+  $('simNext').addEventListener('click',function(){stop();show(cur+1);});
+  $('simReset').addEventListener('click',function(){stop();show(0);});
+
+  window.addEventListener('resize',function(){apply();});
+  apply();show(0);
 })();
 </script>
 </body>
