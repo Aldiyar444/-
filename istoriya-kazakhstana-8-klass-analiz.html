@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Два учебника истории Казахстана</title>
+<meta name="description" content="Сравнительный анализ двух учебников «История Казахстана» для 8 класса: Казахстан в начале XX века и восстание 1916 года.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f5f1e8; --surface:#fffdf8; --surface-2:#efe9dc;
+  --ink:#1d1b16; --ink-2:#55514a; --muted:#7c776b; --line:#e0d9c9;
+  --accent:#0a7aa0; --accent-soft:#dcedf3; --gold:#b7860f; --gold-soft:#f6ecd0;
+  --a:#c4572a; --a-soft:#f8e4d9; --b:#1a8a63; --b-soft:#d9efe5;
+  --series-1:#2a78d6; --warn:#a8461f; --warn-soft:#fbe6dc;
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 8px 24px rgba(40,30,10,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#14130f; --surface:#1d1c17; --surface-2:#26241e;
+    --ink:#f0ede4; --ink-2:#c8c3b6; --muted:#9a9586; --line:#35322a;
+    --accent:#4fb3d6; --accent-soft:#16323c; --gold:#e0b03c; --gold-soft:#352c14;
+    --a:#d96a33; --a-soft:#3a2216; --b:#249e72; --b-soft:#13332a;
+    --series-1:#3987e5; --warn:#ee8a5f; --warn-soft:#3a2016;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#14130f; --surface:#1d1c17; --surface-2:#26241e;
+  --ink:#f0ede4; --ink-2:#c8c3b6; --muted:#9a9586; --line:#35322a;
+  --accent:#4fb3d6; --accent-soft:#16323c; --gold:#e0b03c; --gold-soft:#352c14;
+  --a:#d96a33; --a-soft:#3a2216; --b:#249e72; --b-soft:#13332a;
+  --series-1:#3987e5; --warn:#ee8a5f; --warn-soft:#3a2016;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Lora,Georgia,serif;font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5.4vw,64px);letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:6px}
+h3{font-size:clamp(18px,1.6vw,21px);margin-bottom:8px}
+p{margin:0 0 10px}
+ul{margin:0;padding-left:20px}
+li{margin:4px 0}
+li::marker{color:var(--muted)}
+b,strong{font-weight:700}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--ink-2);max-width:62ch;margin-bottom:22px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.tiny{font-size:12.5px;color:var(--muted)}
+
+/* deck */
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:clamp(24px,4.5vh,56px) clamp(16px,5vw,72px) 96px;opacity:0;visibility:hidden;transform:translateX(28px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s}
+.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease}
+.slide.past{transform:translateX(-28px)}
+.inner{max-width:1180px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;justify-content:center}
+@media (prefers-reduced-motion: reduce){.slide,.slide.active{transition:none;transform:none}}
+
+/* nav */
+.progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--gold));width:0;transition:width .4s ease;z-index:10}
+.nav{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(12px,3vw,32px);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:10}
+.nav .t{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34vw}
+.nav .c{display:flex;align-items:center;gap:8px}
+.nav .r{display:flex;gap:6px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);height:40px;min-width:40px;padding:0 12px;border-radius:10px;font:600 15px Manrope,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{border-color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:disabled{opacity:.4;cursor:default}
+.count{font-variant-numeric:tabular-nums;font-size:14px;color:var(--ink-2);min-width:64px;text-align:center}
+@media (max-width:640px){.nav .t{display:none}.nav{justify-content:center}.nav .r{position:absolute;right:12px}.nav .c{margin-right:80px}}
+
+/* building blocks */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+.card.a{border-top:5px solid var(--a)}
+.card.b{border-top:5px solid var(--b)}
+.card.both{border-top:5px solid var(--accent)}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;vertical-align:middle}
+.tag.a{background:var(--a-soft);color:var(--ink)}
+.tag.b{background:var(--b-soft);color:var(--ink)}
+.tag.both{background:var(--accent-soft);color:var(--ink)}
+.tag::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
+.tag.a::before{background:var(--a)}
+.tag.b::before{background:var(--b)}
+.tag.both::before{background:var(--accent)}
+.book-badge{display:inline-flex;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;font:700 22px Lora,serif;color:#fff;flex:none}
+.book-badge.a{background:var(--a)}
+.book-badge.b{background:var(--b)}
+.row{display:flex;gap:14px;align-items:center}
+.quote{font-family:Lora,serif;font-style:italic;font-size:clamp(18px,1.8vw,23px);line-height:1.4;border-left:4px solid var(--gold);padding:4px 0 4px 18px;margin:0 0 8px}
+.quote cite{display:block;font:500 14px Manrope,sans-serif;color:var(--muted);margin-top:8px;font-style:normal}
+
+/* stats */
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
+.stat .n{font:700 clamp(28px,3.2vw,40px)/1 Lora,serif;margin-bottom:8px}
+.stat .l{font-size:14.5px;color:var(--ink-2);margin-bottom:10px}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:580px;font-size:15px}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+thead th{background:var(--surface-2);font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);font-weight:700;position:sticky;top:0}
+td.c,th.c{text-align:center}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px}
+.dot.full{background:var(--ink)}
+.dot.half{background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);box-shadow:inset 0 0 0 2px var(--ink)}
+.dot.none{box-shadow:inset 0 0 0 2px var(--muted);opacity:.6}
+.diff{background:var(--warn-soft)}
+mark{background:var(--gold-soft);color:inherit;padding:0 3px;border-radius:4px}
+
+/* timeline */
+.tl{position:relative;padding-left:22px;margin:0}
+.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{list-style:none;position:relative;margin:0 0 12px}
+.tl li::before{content:"";position:absolute;left:-21px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 3px var(--accent)}
+.tl .d{font-weight:700;font-variant-numeric:tabular-nums}
+.tl.a li::before{box-shadow:inset 0 0 0 3px var(--a)}
+.tl.b li::before{box-shadow:inset 0 0 0 3px var(--b)}
+
+/* bar chart */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
+.chart h3{margin-bottom:2px}
+.chart .sub{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:grid;grid-template-columns:minmax(7.5em,10.5em) 1fr 4.2em;gap:12px;align-items:center;border-radius:6px}
+.bar-row:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.bl{font-size:14.5px;color:var(--ink-2);white-space:nowrap}
+.track{position:relative;height:22px;border-left:1px solid var(--muted)}
+.fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--series-1);border-radius:0 4px 4px 0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.slide.active .fill{width:calc(var(--v) * 1%)}
+.bv{font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hit{cursor:default}
+.hit:hover .fill,.hit:focus .fill{filter:brightness(1.12)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:7px 10px;border-radius:8px;max-width:260px;z-index:20;opacity:0;transition:opacity .12s}
+.tip.on{opacity:1}
+
+/* quiz */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.q button{margin-top:10px}
+.q .ans{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-weight:600}
+.q.open .ans{display:block}
+
+/* title slide */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.ornament{aspect-ratio:1;max-width:380px;width:100%;justify-self:center}
+.ornament circle,.ornament path{fill:none;stroke-width:2}
+.hint{margin-top:26px;font-size:14px;color:var(--muted)}
+kbd{font:600 12px Manrope,sans-serif;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--surface)}
+.split-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.mb{margin-bottom:18px}
+.mt{margin-top:18px}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<main class="deck" id="deck">
+
+<!-- 1. Title -->
+<section class="slide" data-title="Титул">
+ <div class="inner">
+  <div class="hero">
+   <div>
+    <div class="kicker">История Казахстана · 8 класс</div>
+    <h1>Два учебника — одна эпоха</h1>
+    <p class="lead" style="margin-top:18px">Сравнительный анализ двух учебников от разных авторов: «Казахстан в начале XX века» и национально-освободительное восстание 1916 года.</p>
+    <div class="legend">
+     <span class="tag a">Учебник А · стр. 5–48</span>
+     <span class="tag b">Учебник Б · стр. 7–27</span>
+    </div>
+    <p class="hint">Листайте: <kbd>←</kbd> <kbd>→</kbd> или пробел · <kbd>F</kbd> — полный экран · на телефоне — свайп</p>
+   </div>
+   <svg class="ornament" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="92" stroke="var(--gold)"/>
+    <circle cx="100" cy="100" r="40" stroke="var(--gold)"/>
+    <g stroke="var(--gold)">
+     <path d="M100 8 V60 M100 140 V192 M8 100 H60 M140 100 H192"/>
+     <path d="M35 35 L72 72 M165 35 L128 72 M35 165 L72 128 M165 165 L128 128"/>
+    </g>
+    <path d="M100 76 c-14 0-20 10-14 18 c-10-6-20 0-20 10 M100 76 c14 0 20 10 14 18 c10-6 20 0 20 10" stroke="var(--accent)" stroke-width="3"/>
+    <path d="M100 124 c-14 0-20-10-14-18 M100 124 c14 0 20-10 14-18" stroke="var(--accent)" stroke-width="3"/>
+    <circle cx="100" cy="100" r="6" stroke="var(--accent)" stroke-width="3"/>
+   </svg>
+  </div>
+ </div>
+</section>
+
+<!-- 2. Sources -->
+<section class="slide" data-title="Что сравниваем">
+ <div class="inner">
+  <div class="kicker">Источники анализа</div>
+  <h2 class="mb">Что мы сравниваем</h2>
+  <div class="grid g2">
+   <div class="card a">
+    <div class="row mb"><span class="book-badge a">А</span><div><h3 style="margin:0">Учебник А</h3><div class="tiny">оранжево-коричневое оформление · страницы 5–48</div></div></div>
+    <ul>
+     <li>Раздел I. <b>Казахстан в начале XX века</b> — §1–2, §3, §4</li>
+     <li>Раздел <b>Национально-освободительное движение 1916 года</b> — §5–6, §7, §8–9</li>
+     <li>Начало раздела <b>Февральская революция 1917 г.</b> — §10–11</li>
+     <li>Рубрики: «Сегодня на уроке», «Ключевые слова», «Выполните задание!», QR-коды</li>
+    </ul>
+   </div>
+   <div class="card b">
+    <div class="row mb"><span class="book-badge b">Б</span><div><h3 style="margin:0">Учебник Б</h3><div class="tiny">зелёное оформление · страницы 7–27</div></div></div>
+    <ul>
+     <li>Раздел I. <b>Казахстан в начале XX века</b></li>
+     <li>§1–2. Социально-экономическая ситуация в Казахстане в начале XX века</li>
+     <li>§3. Национально-освободительное восстание 1916 года</li>
+     <li>Рубрики: «Опорные слова» на трёх языках, «Подход к теме», тесты, первоисточники</li>
+    </ul>
+   </div>
+  </div>
+  <p class="tiny mt">Фамилии авторов на присланных страницах не указаны, поэтому в презентации книги обозначены буквами А и Б. Оба учебника охватывают одну и ту же эпоху — 1900–1917 годы.</p>
+ </div>
+</section>
+
+<!-- 3. Scope in numbers -->
+<section class="slide" data-title="Объём">
+ <div class="inner">
+  <div class="kicker">Объём материала</div>
+  <h2 class="mb">Одна тема — разная глубина</h2>
+  <div class="grid g4 mb">
+   <div class="stat"><div class="n">44</div><div class="l">страницы в выдержке учебника А</div><span class="tag a">А</span></div>
+   <div class="stat"><div class="n">21</div><div class="l">страница в выдержке учебника Б</div><span class="tag b">Б</span></div>
+   <div class="stat"><div class="n">6 + 1</div><div class="l">параграфов: шесть полных и начало седьмого</div><span class="tag a">А</span></div>
+   <div class="stat"><div class="n">2</div><div class="l">параграфа (§1–2 и §3)</div><span class="tag b">Б</span></div>
+  </div>
+  <div class="grid g2">
+   <div class="card a"><h3>Учебник А — «вширь»</h3><p class="small">Каждой теме отведён отдельный параграф: идеологии, экономика, переселение, интеллигенция и Дума, пресса, восстание 1916 года, революция 1917 года. Рассказ идёт последовательно и с множеством деталей.</p></div>
+   <div class="card b"><h3>Учебник Б — «вглубь»</h3><p class="small">Переселение, революция 1905 года, петиции и Дума сведены в один сдвоенный параграф. Меньше повествования, больше цифр, цитат чиновников, документов и заданий на анализ.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 4. Coverage matrix -->
+<section class="slide" data-title="Охват тем">
+ <div class="inner">
+  <div class="split-h"><div><div class="kicker">Охват тем</div><h2>Какие темы раскрыты в каждой книге</h2></div>
+   <div class="legend small"><span><span class="dot full"></span> подробно</span><span><span class="dot half"></span> кратко</span><span><span class="dot none"></span> нет в выдержке</span></div></div>
+  <div class="tbl-wrap">
+   <table>
+    <thead><tr><th>Тема</th><th class="c">А</th><th class="c">Б</th><th>Комментарий</th></tr></thead>
+    <tbody>
+     <tr><td>Переселенческая политика, Столыпинская реформа</td><td class="c"><span class="dot full" title="подробно"></span></td><td class="c"><span class="dot full" title="подробно"></span></td><td class="small">А — три этапа колонизации; Б — законы 1903–1906 гг. и статистика</td></tr>
+     <tr><td>Восстание 1916 года</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot full"></span></td><td class="small">Ядро обеих книг; одинаковый исследовательский вопрос</td></tr>
+     <tr><td>Казахские депутаты в Государственной думе</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot full"></span></td><td class="small">Списки депутатов немного расходятся (см. слайд «Расхождения»)</td></tr>
+     <tr><td>Петиционное движение</td><td class="c"><span class="dot half"></span></td><td class="c"><span class="dot full"></span></td><td class="small">Б добавляет петиции 1902–1903 гг. от религиозных деятелей</td></tr>
+     <tr><td>Революция 1905–1907 гг., рабочее движение</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot half"></span></td><td class="small">А — забастовки, стачка на Успенском руднике, Доссор и Эмба</td></tr>
+     <tr><td>Демографические последствия</td><td class="c"><span class="dot none"></span></td><td class="c"><span class="dot full"></span></td><td class="small">Только в Б: перепись 1897 г., доля казахов по областям</td></tr>
+     <tr><td>Экономика: промышленность, капитал, ярмарки</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot half"></span></td><td class="small">Б упоминает только железные дороги и жатаков</td></tr>
+     <tr><td>Джадидизм, пантюркизм, панисламизм</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot none"></span></td><td class="small">Только в А</td></tr>
+     <tr><td>Национальная пресса («Айкап», «Қазақ»)</td><td class="c"><span class="dot full"></span></td><td class="c"><span class="dot none"></span></td><td class="small">Только в А (отдельный §7)</td></tr>
+     <tr><td>Февральская революция 1917 г.</td><td class="c"><span class="dot half"></span></td><td class="c"><span class="dot none"></span></td><td class="small">В А — начало §10–11</td></tr>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</section>
+
+<!-- 5. Common standard -->
+<section class="slide" data-title="Общая основа">
+ <div class="inner">
+  <div class="kicker">Общая основа</div>
+  <h2 class="mb">Одна программа — одинаковые исследовательские вопросы</h2>
+  <p class="lead">Авторы разные, но в обеих книгах встречаются дословно одинаковые исследовательские вопросы. Это значит, что учебники написаны по одной государственной программе.</p>
+  <div class="grid g2">
+   <div class="card both">
+    <p class="quote">Почему А. Байтурсынов считал, что «само существование казахского народа стало проблемой»?</p>
+    <p class="small"><span class="tag a">А · §4</span> Столыпинская реформа и переселение &nbsp; <span class="tag b">Б · §1–2</span> Социально-экономическая ситуация</p>
+   </div>
+   <div class="card both">
+    <p class="quote">Почему восстание 1916 г. приобрело общенародный характер?</p>
+    <p class="small"><span class="tag a">А · §8–9</span> &nbsp; <span class="tag b">Б · §3</span> Национально-освободительное восстание 1916 года</p>
+   </div>
+  </div>
+  <p class="small muted mt">Совпадает и основная фактура: правила о переселении от 6 июля 1904 г., 45 млн десятин изъятых земель, указ от 25 июня 1916 г. (мужчины 19–43 лет), осада Тургая 22 октября 1916 г., избрание А. Жанбосынова ханом и А. Иманова сардаром, картина А. Кастеева.</p>
+ </div>
+</section>
+
+<!-- 6. Resettlement -->
+<section class="slide" data-title="Переселенческая политика">
+ <div class="inner">
+  <div class="kicker">Тема 1 · Переселенческая политика</div>
+  <h2 class="mb">Колонизация земель: два способа рассказать</h2>
+  <div class="grid g2">
+   <div class="card a">
+    <h3>А: три этапа колонизации</h3>
+    <ul class="tl a">
+     <li><span class="d">XVIII — сер. XIX в.</span> — военно-казачья колонизация, линии укреплений</li>
+     <li><span class="d">1867–1868</span> — «Временные положения»: земли казахов объявлены собственностью государства</li>
+     <li><span class="d">1870–1905</span> — стихийное переселение, затем поиск «свободных» земель</li>
+     <li><span class="d">6 июля 1904</span> — крестьянам разрешено переселяться без разрешения властей</li>
+     <li><span class="d">1906–1916</span> — Столыпинская реформа: массовое переселение русских и украинских крестьян</li>
+    </ul>
+   </div>
+   <div class="card b">
+    <h3>Б: законы и учреждения</h3>
+    <ul class="tl b">
+     <li><span class="d">1903</span> — правила о переселении на казённые земли Сырдарьинской, Ферганской и Самаркандской областей</li>
+     <li><span class="d">25 июня 1903</span> — правила о пособиях переселенцам в Сибирь и Степное генерал-губернаторство</li>
+     <li><span class="d">6 июля 1904</span> — «Временные правила о переселении сельских обывателей и мещан-землевладельцев»</li>
+     <li><span class="d">1904–1905</span> — пять переселенческих районов: Тургайско-Уральский, Акмолинский, Семипалатинский, Сырдарьинский, Семиреченский</li>
+     <li><span class="d">1906</span> — решение Совета министров (П. А. Столыпин) о массовом переселении</li>
+    </ul>
+   </div>
+  </div>
+  <p class="small muted mt">Вывод: А объясняет <b>причины и логику</b> колонизации (отмена крепостного права, опора на переселенцев, «житница» империи). Б показывает <b>механизм</b>: льготы переселенцам — ссуды до 165 руб., освобождение от налогов на 5 лет, особые поезда и тарифы.</p>
+ </div>
+</section>
+
+<!-- 7. Land in numbers -->
+<section class="slide" data-title="Земельный вопрос в цифрах">
+ <div class="inner">
+  <div class="kicker">Тема 1 · Цифры</div>
+  <h2 class="mb">Земельный вопрос в цифрах</h2>
+  <div class="grid g3 mb">
+   <div class="stat"><div class="n">45 млн</div><div class="l">десятин земли изъято у казахов к 1916 г. (1 десятина = 1,09 га)</div><span class="tag both">А и Б</span></div>
+   <div class="stat"><div class="n">20 %</div><div class="l">земель, пригодных для земледелия, ушло в Переселенческий фонд</div><span class="tag a">А</span></div>
+   <div class="stat"><div class="n">15 → 10</div><div class="l">десятин на одну мужскую душу: надел сократили в 1890-х, чтобы расселить больше крестьян</div><span class="tag a">А</span></div>
+   <div class="stat"><div class="n">1,6 млн</div><div class="l">переселенцев прибыло в край за 1871–1917 гг., больше всего в 1907–1916 гг.</div><span class="tag a">А</span></div>
+   <div class="stat"><div class="n">≈ 2 млн</div><div class="l">человек составляло крестьянское население края к середине 1916 г.</div><span class="tag b">Б</span></div>
+   <div class="stat"><div class="n">4 → 17 млн</div><div class="l">десятин изъято: 1893–1905 гг. и 1906–1912 гг. — темп резко вырос после реформы</div><span class="tag b">Б</span></div>
+  </div>
+  <div class="chart">
+   <h3>Доля земель, изъятых в Переселенческий фонд</h3>
+   <div class="sub">по уездам, % от всех земель уезда · учебник Б</div>
+   <div class="bars">
+    <div class="bar-row hit" tabindex="0" data-tip="Акмолинский уезд: изъято 73% всех земель"><span class="bl">Акмолинский уезд</span><span class="track"><span class="fill" style="--v:73"></span></span><span class="bv">73 %</span></div>
+    <div class="bar-row hit" tabindex="0" data-tip="Кустанайский уезд: изъято 54% всех земель"><span class="bl">Кустанайский уезд</span><span class="track"><span class="fill" style="--v:54"></span></span><span class="bv">54 %</span></div>
+    <div class="bar-row hit" tabindex="0" data-tip="Омский уезд: изъято 52% всех земель"><span class="bl">Омский уезд</span><span class="track"><span class="fill" style="--v:52"></span></span><span class="bv">52 %</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 8. Demography -->
+<section class="slide" data-title="Демография">
+ <div class="inner">
+  <div class="kicker">Тема 1 · Последствия</div>
+  <h2 class="mb">Демографические последствия есть только в учебнике Б</h2>
+  <div class="grid g2">
+   <div class="chart">
+    <h3>Доля казахов в населении областей</h3>
+    <div class="sub">1917 год, % · учебник Б, рубрика «Необходимые сведения»</div>
+    <div class="bars">
+     <div class="bar-row hit" tabindex="0" data-tip="Семипалатинская область: казахи — 73% населения (1917)"><span class="bl">Семипалатинская</span><span class="track"><span class="fill" style="--v:73"></span></span><span class="bv">73 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Сырдарьинская область: казахи — 62,3% населения (1917)"><span class="bl">Сырдарьинская</span><span class="track"><span class="fill" style="--v:62.3"></span></span><span class="bv">62,3 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Семиреченская область: казахи — 60,5% населения (1917)"><span class="bl">Семиреченская</span><span class="track"><span class="fill" style="--v:60.5"></span></span><span class="bv">60,5 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Тургайская область: казахи — 58,7% населения (1917)"><span class="bl">Тургайская</span><span class="track"><span class="fill" style="--v:58.7"></span></span><span class="bv">58,7 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Уральская область: казахи — 56,9% населения (1917)"><span class="bl">Уральская</span><span class="track"><span class="fill" style="--v:56.9"></span></span><span class="bv">56,9 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Акмолинская область: казахи — 36,6% населения (1917)"><span class="bl">Акмолинская</span><span class="track"><span class="fill" style="--v:36.6"></span></span><span class="bv">36,6 %</span></div>
+    </div>
+   </div>
+   <div>
+    <div class="stat mb"><div class="n">78 %</div><div class="l">населения края составляли казахи в 1897 г.: 3 392 700 из 4 333 000 человек</div><span class="tag b">Б</span></div>
+    <div class="card">
+     <h3>Что это показывает</h3>
+     <ul class="small">
+      <li>Сильнее всего доля казахов упала на севере, в Акмолинской области, где изъяли больше всего земли.</li>
+      <li>Б ставит прямой вопрос: «Какие изменения привнесло в демографию края массовое переселение крестьян?»</li>
+      <li>После 1916 г. доля казахов уменьшилась и в Семиречье: в Жаркентском уезде до 73 %, в Лепсинском до 47 %, в Верненском до 45 % (Б).</li>
+     </ul>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 9. Economy -->
+<section class="slide" data-title="Экономика">
+ <div class="inner">
+  <div class="kicker">Тема 2 · Экономика · подробно только в учебнике А</div>
+  <h2 class="mb">Экономика: кочевое хозяйство и иностранный капитал</h2>
+  <div class="grid g2">
+   <div class="chart">
+    <h3>Структура стада у казахов</h3>
+    <div class="sub">начало XX в., % поголовья · учебник А, §3</div>
+    <div class="bars">
+     <div class="bar-row hit" tabindex="0" data-tip="Овцы — около 60% поголовья"><span class="bl">Овцы</span><span class="track"><span class="fill" style="--v:60"></span></span><span class="bv">60 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Лошади — 13% поголовья"><span class="bl">Лошади</span><span class="track"><span class="fill" style="--v:13"></span></span><span class="bv">13 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Козы — 12% поголовья"><span class="bl">Козы</span><span class="track"><span class="fill" style="--v:12"></span></span><span class="bv">12 %</span></div>
+     <div class="bar-row hit" tabindex="0" data-tip="Верблюды — 3% поголовья"><span class="bl">Верблюды</span><span class="track"><span class="fill" style="--v:3"></span></span><span class="bv">3 %</span></div>
+    </div>
+    <p class="tiny" style="margin:12px 0 0">К 1917 г. две трети скотоводов вели кочевой и полукочевой образ жизни.</p>
+   </div>
+   <div class="grid" style="gap:12px">
+    <div class="grid g2" style="gap:12px">
+     <div class="stat"><div class="n">106</div><div class="l">ярмарок в 1900 г. (Коянды-Ботовская, Каркаринская, Константиновская и др.)</div></div>
+     <div class="stat"><div class="n">15 %</div><div class="l">всего золота России давали алтайские рудники; 125 приисков в одном Усть-Каменогорском уезде</div></div>
+    </div>
+    <div class="card a">
+     <h3>Учебник А</h3>
+     <p class="small">Капитал из Франции, Англии, Германии, Австро-Венгрии и США. Спасские медные рудники в 1904 г. перешли к англо-французскому акционерному обществу. Вывод учебника: Казахстан превращался в «сырьевой придаток» империи.</p>
+    </div>
+    <div class="card b">
+     <h3>Учебник Б</h3>
+     <p class="small">Только железные дороги (Оренбург — Ташкент, 1901–1905; к 1917 г. — 2793 км путей) и жатаки: разорившиеся казахи, около 50 тыс. человек, уходили на заработки в Томскую и Тобольскую губернии.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 10. Ideologies -->
+<section class="slide" data-title="Идейные течения">
+ <div class="inner">
+  <div class="kicker">Тема 3 · Общественная мысль · только в учебнике А</div>
+  <h2 class="mb">Идейные течения начала XX века</h2>
+  <div class="grid g3">
+   <div class="card a"><h3>Джадидизм</h3><p class="small">От араб. «новый». Обновление образования и ислама, звуковой метод «усул-и джадид». Основатель — Исмаил Гаспринский, который в 1883 г. призвал к единству в «языке, идее и действиях».</p></div>
+   <div class="card a"><h3>Пантюркизм</h3><p class="small">Объединение тюркских народов на основе общего происхождения и судьбы.</p></div>
+   <div class="card a"><h3>Панисламизм</h3><p class="small">Объединение мусульман. В 1905 г. создан Всероссийский союз мусульман «Иттифак аль-муслимин».</p></div>
+   <div class="card a"><h3>Либерально-демократическое</h3><p class="small">Основная масса интеллигенции: А. Букейханов, Ж. Акпаев, А. Байтурсынов. Сотрудничали с кадетами, а в 1917 г. стали основателями партии «Алаш».</p></div>
+   <div class="card a"><h3>Социал-демократическое</h3><p class="small">Меньшинство интеллигенции, связанное с РСДРП и эсерами: С. Сейфуллин, С. Мендешев, К. Тогусов.</p></div>
+   <div class="card b"><h3>А что в учебнике Б?</h3><p class="small">Идеологии отдельно не разбираются. Интеллигенция появляется в Б как организатор петиций и депутаты Думы, а её раскол показан на примере отношения к указу 1916 г.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 11. Revolution 1905 -->
+<section class="slide" data-title="Революция 1905–1907">
+ <div class="inner">
+  <div class="kicker">Тема 4 · Первая русская революция</div>
+  <h2 class="mb">Революция 1905–1907 гг. в Казахстане</h2>
+  <div class="grid g2">
+   <div class="card a">
+    <h3>Учебник А: рабочее и аграрное движение</h3>
+    <ul class="tl a small">
+     <li><span class="d">Янв.–фев. 1905</span> — стачка железнодорожников Уральска, Перовска, Туркестана, Шалкара</li>
+     <li><span class="d">17 октября 1905</span> — Манифест Николая II о свободах и созыве Думы</li>
+     <li><span class="d">15 ноября 1905</span> — митинг в Каркаралинске, его организатора Ж. Акпаева сослали в Якутию</li>
+     <li><span class="d">Декабрь 1905</span> — стачка на Успенских рудниках: введён 8-часовой рабочий день; военное положение в Акмолинской и Семипалатинской областях</li>
+     <li><span class="d">Июль 1906</span> — шествие в Семипалатинске, «главное политическое событие» в Казахстане</li>
+     <li><span class="d">1912</span> — стачки нефтяников Доссора и Эмбы</li>
+    </ul>
+   </div>
+   <div class="card b">
+    <h3>Учебник Б: настроения и ответ власти</h3>
+    <ul class="small">
+     <li>Весть о «Кровавом воскресенье» 9 января 1905 г. вызвала сочувствие у казахов. Машхур-Жусуп Копейулы написал стихотворение «Қанды жексенбі», и власти запретили его публикацию.</li>
+     <li>Во главе недовольных — А. Бокейхан, А. Байтурсынулы, М. Дулатулы.</li>
+     <li>Железнодорожники сами ввели 8-часовой рабочий день и одними из первых создали профсоюзы.</li>
+     <li><b>Январь 1906 г.</b> — военное положение в Акмолинской и Семипалатинской областях, обыски, аресты, высылки.</li>
+    </ul>
+    <p class="tiny" style="margin-top:10px">Обратите внимание: дата военного положения в книгах разная (декабрь 1905 г. и январь 1906 г.).</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 12. Petitions -->
+<section class="slide" data-title="Петиционное движение">
+ <div class="inner">
+  <div class="kicker">Тема 5 · Мирная борьба</div>
+  <h2 class="mb">Петиционное движение и Каркаралинская петиция</h2>
+  <div class="grid g2 mb">
+   <div class="card b">
+    <h3>Б: история петиций</h3>
+    <ul class="small">
+     <li><b>1902–1903</b> — первые петиции от религиозных деятелей и предпринимателей (Науан хазрет, Беис хазрет, Ш. Косшыгулов): прекратить христианизацию, развивать мусульманские школы.</li>
+     <li>В годы революции инициатива перешла к светской интеллигенции.</li>
+     <li><b>Июль 1905</b> — съезд на Коянды-Ботовской ярмарке. <b>22 июля 1905</b> петицию отправили царю телеграммой из Каркаралинска.</li>
+     <li>Авторы: А. Бокейхан, А. Байтурсынулы, Ж. Акпаев, М. Дулатулы, Т. Нурекенов.</li>
+    </ul>
+   </div>
+   <div class="card a">
+    <h3>А: петиция как особенность движения</h3>
+    <ul class="small">
+     <li>Петиции названы главной особенностью национального либерально-демократического движения.</li>
+     <li>«Первая петиция была принята в июле 1905 г. на митинге на Коянды-Ботовской ярмарке».</li>
+     <li>Задание: найти текст петиции в дополнительной литературе и выписать требования.</li>
+    </ul>
+   </div>
+  </div>
+  <div class="card both">
+   <h3>Требования Каркаралинской петиции (совпадают в обеих книгах)</h3>
+   <p class="small" style="margin:0">Казахский язык в делопроизводстве, суде и образовании · прекращение переселенческой политики · возврат изъятых земель · ограничение произвола чиновников · допуск казахов к выборам в Думу · самостоятельное духовное управление мусульман</p>
+  </div>
+ </div>
+</section>
+
+<!-- 13. Duma -->
+<section class="slide" data-title="Государственная дума">
+ <div class="inner">
+  <div class="kicker">Тема 6 · Парламентская борьба</div>
+  <h2 class="mb">Казахские депутаты в Государственной думе</h2>
+  <div class="tbl-wrap mb">
+   <table>
+    <thead><tr><th style="width:22%">Область</th><th style="width:42%">I Дума, 1906 (72 дня)</th><th>II Дума, 1907 (103 дня)</th></tr></thead>
+    <tbody>
+     <tr><td>Семипалатинская</td><td>Алихан Бокейхан (Букейханов)</td><td>Темиргали Нурекенов</td></tr>
+     <tr><td>Тургайская</td><td>Ахмет Беремжанов</td><td>Ахмет Беремжанов</td></tr>
+     <tr><td>Уральская</td><td>Алпысбай Калменов</td><td>Бахытжан Каратаев</td></tr>
+     <tr><td>Акмолинская</td><td>Шаймерден Косшыгулов</td><td>Шаймерден Косшыгулов</td></tr>
+     <tr><td>Букеевская Орда</td><td>Бактыгерей Кулманов</td><td class="diff">Б. Кулманов — <b>только в А</b></td></tr>
+     <tr><td>Семиреченская</td><td>—</td><td>Мухамеджан Тынышпаев</td></tr>
+     <tr><td>Сырдарьинская</td><td>—</td><td>Тлеули Аллабергенов</td></tr>
+     <tr><td>Вне Казахстана</td><td>С. Жантюрин / Жанторин (Уфимская губ.); <span class="diff">Д. Тундутов (Астраханская) — только в А</span></td><td>—</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="grid g2">
+   <p class="small" style="margin:0"><span class="tag both">А и Б</span> Депутаты II Думы примыкали к кадетам и мусульманской фракции. <b>Б. Каратаев</b> выступил против переселенческой политики («казахов изгоняют не только с исконных земель, но и из собственных жилищ»). Начиная с III Думы казахи лишены избирательных прав.</p>
+   <p class="small" style="margin:0"><span class="tag a">А</span> Дополнительно: 12 портретов депутатов, Выборгское воззвание (за участие в нём А. Букейханов попал в тюрьму), коллективное обращение 1907 г. в защиту кочевого образа жизни. <span class="tag b">Б</span> Защитники казахов среди других депутатов: Т. Седельников, Ш. Сыртланов, С. Максудов, Х. Мамедов; секретарь мусульманской фракции — М. Шокай.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 14. Press -->
+<section class="slide" data-title="Национальная пресса">
+ <div class="inner">
+  <div class="kicker">Тема 7 · Пресса · только в учебнике А (§7)</div>
+  <h2 class="mb">Национальная пресса: «глаза, уши и язык народа»</h2>
+  <div class="grid g2">
+   <ul class="tl">
+    <li><span class="d">1870</span> — «Түркістан уалаятының газеті», Ташкент: на казахском и узбекском языках</li>
+    <li><span class="d">1888</span> — «Дала уалаятының газеті», Омск: этнография, литература, статьи Байтурсынова, Дулатова, Шокая</li>
+    <li><span class="d">1907</span> — «Серке», Санкт-Петербург: первая казахская общественно-политическая газета, позже запрещена</li>
+    <li><span class="d">1911–1915</span> — журнал «Айкап», Троицк. Редактор — Мухамеджан Сералин. Основная тема — земельный вопрос</li>
+    <li><span class="d">1913–1918</span> — газета «Қазақ», Оренбург: А. Букейханов, А. Байтурсынов, М. Дулатов</li>
+    <li><span class="d">1914–1918</span> — общество «Бірлік», Омск, рукописный журнал «Балапан»</li>
+   </ul>
+   <div>
+    <p class="quote">Газета — глаза, уши и язык народа.<cite>А. Байтурсынов · учебник А</cite></p>
+    <div class="card a mt">
+     <h3>Зачем это сравнивать?</h3>
+     <p class="small">В выдержке из Б прессы нет вообще: «Айкап» упоминается мимоходом, как журнал, где не дали напечатать стихотворение. Если учиться только по Б, теряется важная линия — как интеллигенция формировала национальное самосознание через печать. Учебник А даёт задание сравнить «Айкап» и «Қазақ» с помощью диаграммы Венна.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 15. 1916 causes -->
+<section class="slide" data-title="1916: причины">
+ <div class="inner">
+  <div class="kicker">Тема 8 · Восстание 1916 года</div>
+  <h2 class="mb">Причины и повод восстания</h2>
+  <div class="grid g2 mb">
+   <div class="card a">
+    <h3>А: список из 7 причин</h3>
+    <ol class="small" style="padding-left:20px;margin:0">
+     <li>Усиление колониальной политики</li>
+     <li>Изъятие 45 млн десятин плодородных земель</li>
+     <li>Рост налогов, реквизиция юрт и кошм, военный налог</li>
+     <li>Эксплуатация со стороны господствующих классов</li>
+     <li>Межнациональные столкновения с переселенцами</li>
+     <li>Кризис хозяйства из-за войны</li>
+     <li>Политика русификации</li>
+    </ol>
+   </div>
+   <div class="card b">
+    <h3>Б: схема из 9 причин и конкретные цифры</h3>
+    <ul class="small">
+     <li>Переселение, изъятие земель, скота и юрт, кибиточный налог, ограничение прав мусульман, ослабление суда биев, игнорирование обычаев, миссионерская политика.</li>
+     <li>Налог вырос <b>в 3–4 раза</b>; военный налог — <b>1 руб. 84 коп.</b> с каждой семьи.</li>
+     <li>Взяточничество при составлении списков. Цитата А. Керенского: «60-летних стариков записывают 30-летними…»</li>
+    </ul>
+   </div>
+  </div>
+  <div class="card both">
+   <h3>Повод — одинаково в обеих книгах</h3>
+   <p class="small" style="margin:0"><b>Указ 25 июня 1916 г.</b> о привлечении «инородческого» мужского населения <b>19–43 лет</b> на тыловые работы. <span class="tag a">А</span> планировали призвать 500 тыс. человек <i>из Казахстана</i>, позже призыв перенесли на 15 сентября. <span class="tag b">Б</span> около полумиллиона <i>из Казахстана и Средней Азии</i>; приведён текст указа (первоисточник) и указ Куропаткина от 23 августа об освобождении чингизидов, чиновников и духовенства.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 16. Course timeline -->
+<section class="slide" data-title="1916: ход восстания">
+ <div class="inner">
+  <div class="kicker">Тема 8 · Ход восстания</div>
+  <h2 class="mb">Хроника 1916–1917 гг. по двум книгам</h2>
+  <div class="grid g2">
+   <div>
+    <h3>Семиречье</h3>
+    <ul class="tl small">
+     <li><span class="d">11 июля</span> — собрание в Каркаре: решили «не давать джигитов» <span class="tag a">А</span></li>
+     <li><span class="d">Июль–август</span> — массовое вооружённое сопротивление, участвовали уйгуры, дунгане, киргизы <span class="tag both">А и Б</span></li>
+     <li><span class="d">17 июля</span> — военное положение в Семиречье и Туркестанском крае <span class="tag a">А</span></li>
+     <li><span class="d">12 августа</span> — приказ о военно-полевом суде <span class="tag a">А</span></li>
+     <li><span class="d">Сентябрь</span> — смертный приговор Б. Ашекееву в г. Верном <span class="tag b">Б</span></li>
+     <li><span class="d">Октябрь</span> — восстание подавлено, беженцы уходят в Китай <span class="tag both">А и Б</span></li>
+    </ul>
+   </div>
+   <div>
+    <h3>Тургай</h3>
+    <ul class="tl small">
+     <li><span class="d">22 октября</span> — осада Тургая (Б: 15 тыс. сабель); через 10 дней снята <span class="tag both">А и Б</span></li>
+     <li><span class="d">21 ноября</span> — курултай 13 волостей: А. Жанбосынов избран ханом, А. Иманов — сардаром <span class="tag both">А и Б</span></li>
+     <li><span class="d">26 ноября</span> — до 50 тыс. повстанцев (по данным генерала Сандецкого) <span class="tag a">А</span></li>
+     <li><span class="d">Нояб. 1916 — фев. 1917</span> — бои в урочище Батпаккара, партизанская война <span class="tag a">А</span></li>
+     <li><span class="d">Конец 1917</span> — повстанцы взяли Тургай <span class="tag b">Б</span></li>
+    </ul>
+    <div class="card a mt"><p class="small" style="margin:0"><b>Только в А:</b> три этапа восстания — лето 1916 г. (начало), осень и зима 1916 г. (пик), весна 1917 г. (спад, Февральская революция).</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 17. Leaders -->
+<section class="slide" data-title="1916: лидеры">
+ <div class="inner">
+  <div class="kicker">Тема 8 · Руководители</div>
+  <h2 class="mb">Лидеры и очаги восстания</h2>
+  <div class="grid g3 mb">
+   <div class="card both"><h3>Тургай</h3><p class="small">Амангельды Иманов (сардар), Абдигапар Жанбосынулы (хан), Кейки батыр (командир отряда стрелков-мергенов), А. Жангельдин. Повстанцы создали военный совет «Кеңес», казначеев, почту и кузницы.</p></div>
+   <div class="card both"><h3>Семиречье</h3><p class="small">Токаш Бокин, Бекболат Ашекеев (провозглашён ханом), Узак Саурыков, Жаменке Мамбетов. <span class="tag a">А</span> Аккоз Косанулы.</p></div>
+   <div class="card b"><h3>Акмолинский уезд</h3><p class="small">Рахымжан Мадин и украинец <b>Яков Латута</b> (Жакып Жоламанов), до 30 тыс. повстанцев. Хорошая иллюстрация интернационального характера восстания.</p></div>
+  </div>
+  <div class="grid g2">
+   <div class="card a"><h3>Учебник А: карта лидеров по регионам</h3><p class="small" style="margin:0">Букеевская Орда — С. Мендешев · Акмолинская — А. Майкотов · Актюбинская — Б. Алманов · Сырдарьинская — Т. Рыскулов · Уральская — А. Айтиев.</p></div>
+   <div class="card b"><h3>Учебник Б: краткие биографии</h3><p class="small" style="margin:0">В конце параграфа даны годы жизни и роль Т. Бокина, А. Иманова, А. Жанбосынулы, Кейки батыра и Я. Латуты. Есть творческое задание: рассказать о лидерах восстания.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 18. Intelligentsia split -->
+<section class="slide" data-title="Интеллигенция и указ">
+ <div class="inner">
+  <div class="kicker">Тема 8 · Дискуссия</div>
+  <h2 class="mb">Раскол интеллигенции: воевать или договариваться?</h2>
+  <div class="grid g2 mb">
+   <div class="card">
+    <h3>За вооружённое сопротивление</h3>
+    <p class="small">Т. Бокин, А. Майкотов (Майкутов), С. Сейфуллин, С. Мендешев, А. Жангельдин <span class="tag b">Б</span>; Т. Бокин, Ж. Ниязбеков, А. Жунусов <span class="tag a">А</span></p>
+    <p class="small"><span class="tag a">А</span> К отказу от мобилизации призывали также редакция «Айкапа» и партия «Уш жуз».</p>
+   </div>
+   <div class="card">
+    <h3>Против вооружённой борьбы</h3>
+    <p class="small">А. Бокейхан, А. Байтурсынов, М. Дулатов: они опасались огромных жертв — «первыми жертвами карательных экспедиций станут дети и женщины» (эта мысль есть в обеих книгах).</p>
+    <p class="small"><span class="tag a">А</span> 11 августа 1916 г. вышло обращение к народу в газете «Қазақ». При этом М. Дулатов назвал указ «кровавым».</p>
+   </div>
+  </div>
+  <p class="quote">Луна не светит, солнце не взошло, зари нет… В туманы вошёл наш народ… в спячке, в капкане…<cite>М. Дулатов — вопрос №1 к §3 учебника Б</cite></p>
+ </div>
+</section>
+
+<!-- 19. Defeat and significance -->
+<section class="slide" data-title="1916: итоги">
+ <div class="inner">
+  <div class="kicker">Тема 8 · Итоги</div>
+  <h2 class="mb">Причины поражения и историческое значение</h2>
+  <div class="grid g2 mb">
+   <div class="card a">
+    <h3>А: причины поражения</h3>
+    <p class="small">Разрозненность · отсутствие единого центра командования · слабая организация · превосходство царской армии в вооружении</p>
+    <h3 class="mt">А: значение</h3>
+    <p class="small" style="margin:0">Антиколониальный и антиимпериалистический характер, охват всех регионов, рост национального самосознания. Восстание — часть борьбы казахов за независимость в XVIII–XX вв.</p>
+   </div>
+   <div class="card b">
+    <h3>Б: причины поражения</h3>
+    <p class="small">Разобщённость · недостаточные связи между очагами · превосходящие силы карателей</p>
+    <h3 class="mt">Б: значение</h3>
+    <p class="small" style="margin:0">Подорвало колониальную систему, стало частью освободительного движения народов Востока; боевой опыт пригодился при создании алашских полков в 1918–1920 гг.</p>
+   </div>
+  </div>
+  <div class="grid g4">
+   <div class="stat"><div class="n">347</div><div class="l">приговорены к смертной казни в Туркестанском крае</div><span class="tag b">Б</span></div>
+   <div class="stat"><div class="n">168</div><div class="l">приговорены к каторге</div><span class="tag b">Б</span></div>
+   <div class="stat"><div class="n">129</div><div class="l">приговорены к тюремному заключению</div><span class="tag b">Б</span></div>
+   <div class="stat"><div class="n">300 тыс.</div><div class="l">казахов откочевали из Семиречья в Китай (в Б — «сотни тысяч»)</div><span class="tag a">А</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- 20. Discrepancies -->
+<section class="slide" data-title="Расхождения">
+ <div class="inner">
+  <div class="kicker">Критический анализ</div>
+  <h2 class="mb">Где учебники расходятся</h2>
+  <div class="tbl-wrap">
+   <table>
+    <thead><tr><th>Факт</th><th><span class="tag a">Учебник А</span></th><th><span class="tag b">Учебник Б</span></th></tr></thead>
+    <tbody>
+     <tr><td>Казахи во II Думе</td><td>7 депутатов (вместе с Б. Кулмановым) из 14 от Казахстана</td><td>6 депутатов, Кулманова нет</td></tr>
+     <tr><td>Депутаты I Думы</td><td>9 от Казахстана, из них 5 казахов; плюс Жантюрин и Д. Тундутов вне края</td><td>6 имён, включая Жанторина (Уфимская губ.); Тундутова нет</td></tr>
+     <tr class="diff"><td>Т. Нурекенов</td><td>Депутат II Думы</td><td>В тексте назван депутатом II Думы (1907), в биографической справке — «депутатом I Государственной Думы». <b>Противоречие внутри учебника</b></td></tr>
+     <tr><td>Военное положение в Акмолинской и Семипалатинской областях</td><td>Декабрь 1905 г.</td><td>Январь 1906 г.</td></tr>
+     <tr><td>Кого призывал указ 1916 г.</td><td>500 тыс. — <i>из Казахстана</i></td><td>≈ 0,5 млн — <i>из Казахстана и Средней Азии</i></td></tr>
+     <tr><td>Тургайский очаг</td><td>Держался до Февральской революции и слился с ней</td><td>«В конце 1917 г. повстанцы захватили г. Тургай»</td></tr>
+     <tr><td>Беженцы в Китай</td><td>300 тыс. казахов</td><td>«сотни тысяч»</td></tr>
+     <tr><td>Написание имён</td><td>Русифицированное: Букейханов, Байтурсынов, Дулатов</td><td>Казахское: Бокейхан, Байтурсынулы, Дулатулы</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="small muted mt">Совет ученику: если цифры не совпадают, указывайте источник («по данным учебника…») и проверяйте по документам. Именно этому учат рубрики обеих книг.</p>
+ </div>
+</section>
+
+<!-- 21. Methodology -->
+<section class="slide" data-title="Методический аппарат">
+ <div class="inner">
+  <div class="kicker">Как построены уроки</div>
+  <h2 class="mb">Методический аппарат</h2>
+  <div class="tbl-wrap">
+   <table>
+    <thead><tr><th>Элемент</th><th><span class="tag a">Учебник А</span></th><th><span class="tag b">Учебник Б</span></th></tr></thead>
+    <tbody>
+     <tr><td>Вход в урок</td><td>«Сегодня на уроке» (цели) + исследовательский вопрос</td><td>Исследовательский вопрос + «Подход к теме» (проблемная цитата, например Т. Рыскулова)</td></tr>
+     <tr><td>Термины</td><td>«Ключевые слова» на русском языке + словарь в конце параграфа</td><td>«Опорные слова» на <b>трёх языках</b> (каз./рус./англ.) + словарь + биографии</td></tr>
+     <tr><td>Цифровые ресурсы</td><td>QR-коды почти в каждом параграфе: карты, задания</td><td>QR-коды на документ и видео, созданное с помощью ИИ</td></tr>
+     <tr><td>Первоисточники</td><td>Воспоминания шахтёра Т. Кузембаева, цитаты Дулатова и Байтурсынова, справка из энциклопедии</td><td>Цитаты Куропаткина, Никольского, Седельникова, Керенского, Каратаева, <b>полный текст указа 1916 г.</b></td></tr>
+     <tr><td>Задания</td><td>«Выполните задание!», таблицы, диаграмма Венна, «верно/неверно», эссе о Кейки батыре</td><td>«Подумайте», «Проанализируйте», формула <b>ПОПС</b>, парная работа, сопоставление цитат с авторами</td></tr>
+     <tr><td>Контроль</td><td>Вопросы для устного ответа</td><td><b>Тесты</b> (A–D) и задания на хронологию</td></tr>
+     <tr><td>Наглядность</td><td>Много фотографий эпохи, 3 карты, 12 портретов депутатов</td><td>Схемы причин, портреты, карта восстания 1916 г.</td></tr>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</section>
+
+<!-- 22. Strengths / weaknesses -->
+<section class="slide" data-title="Сильные и слабые стороны">
+ <div class="inner">
+  <div class="kicker">Оценка</div>
+  <h2 class="mb">Сильные и слабые стороны</h2>
+  <div class="grid g2">
+   <div class="card a">
+    <div class="row mb"><span class="book-badge a">А</span><h3 style="margin:0">Учебник А</h3></div>
+    <p class="small"><b>Плюсы</b></p>
+    <ul class="small mb">
+     <li>Широкий контекст: идеологии, экономика, пресса, рабочее движение</li>
+     <li>Чёткая периодизация: этапы колонизации и восстания</li>
+     <li>Богатые иллюстрации и карты</li>
+     <li>Связь с современностью: тюркские народы, профсоюзы</li>
+    </ul>
+    <p class="small"><b>Минусы</b></p>
+    <ul class="small">
+     <li>Много текста, мало статистики о последствиях</li>
+     <li>Нет тестов для самопроверки</li>
+     <li>Мало цитат «другой стороны» — колониальных чиновников</li>
+    </ul>
+   </div>
+   <div class="card b">
+    <div class="row mb"><span class="book-badge b">Б</span><h3 style="margin:0">Учебник Б</h3></div>
+    <p class="small"><b>Плюсы</b></p>
+    <ul class="small mb">
+     <li>Опора на документы и цифры, взгляд с разных сторон</li>
+     <li>Развивает критическое мышление (ПОПС, анализ цитат)</li>
+     <li>Трёхъязычные термины, тесты в формате экзамена</li>
+     <li>Демография и законодательная база переселения</li>
+    </ul>
+    <p class="small"><b>Минусы</b></p>
+    <ul class="small">
+     <li>Узкий охват: нет прессы, джадидизма, экономики</li>
+     <li>Сжатое изложение, трудное без пояснений учителя</li>
+     <li>Внутреннее противоречие (Т. Нурекенов: I или II Дума)</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 23. Conclusions -->
+<section class="slide" data-title="Выводы">
+ <div class="inner">
+  <div class="kicker">Выводы</div>
+  <h2 class="mb">Что показал анализ</h2>
+  <div class="grid g3 mb">
+   <div class="card both"><h3>1. Общая основа</h3><p class="small" style="margin:0">Обе книги написаны по одной программе: в них совпадают исследовательские вопросы, ключевые даты и оценка событий. Колонизация показана как причина кризиса, а восстание 1916 г. — как общенародное и национально-освободительное.</p></div>
+   <div class="card both"><h3>2. Разный подход</h3><p class="small" style="margin:0">А — повествовательный учебник-энциклопедия, который даёт широкую картину эпохи. Б — учебник-практикум: компактный, построенный на источниках и заданиях на анализ.</p></div>
+   <div class="card both"><h3>3. Расхождения в деталях</h3><p class="small" style="margin:0">Есть различия в составе депутатов, в датах и масштабах. Это повод для исследовательской работы: сверить факты по документам и энциклопедиям.</p></div>
+  </div>
+  <div class="card" style="border-left:5px solid var(--gold)">
+   <h3>Рекомендация</h3>
+   <p style="margin:0">Лучше всего использовать книги <b>вместе</b>: по учебнику А изучать сюжет и контекст эпохи, по учебнику Б — тренировать работу с источниками и готовиться к тестам. В выдержке из Б нет тем о прессе и общественной мысли — их нужно брать из А.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 24. Quiz -->
+<section class="slide" data-title="Проверь себя">
+ <div class="inner">
+  <div class="kicker">Проверь себя</div>
+  <h2 class="mb">Вопросы по обоим учебникам</h2>
+  <div class="grid g3">
+   <div class="q"><b>1.</b> Мужчин какого возраста призывал на тыловые работы указ 25 июня 1916 г.?<br><button class="btn" type="button">Показать ответ</button><div class="ans">19–43 года (А и Б)</div></div>
+   <div class="q"><b>2.</b> Сколько десятин земли было изъято у казахов к 1916 г.?<br><button class="btn" type="button">Показать ответ</button><div class="ans">Около 45 млн десятин (А и Б)</div></div>
+   <div class="q"><b>3.</b> Кто был избран ханом восставших в Тургайском уезде?<br><button class="btn" type="button">Показать ответ</button><div class="ans">Абдигапар Жанбосынулы, 21 ноября 1916 г.</div></div>
+   <div class="q"><b>4.</b> Где и когда выходил журнал «Айкап»? Кто был его редактором?<br><button class="btn" type="button">Показать ответ</button><div class="ans">Троицк, 1911–1915, Мухамеджан Сералин (А)</div></div>
+   <div class="q"><b>5.</b> Какой депутат II Думы выступил с докладом о вреде переселенческой политики?<br><button class="btn" type="button">Показать ответ</button><div class="ans">Бахытжан Каратаев (А и Б)</div></div>
+   <div class="q"><b>6.</b> Какая особая форма борьбы за права характерна для казахов начала XX века?<br><button class="btn" type="button">Показать ответ</button><div class="ans">Составление петиций (тест из Б)</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 25. End -->
+<section class="slide" data-title="Спасибо">
+ <div class="inner" style="text-align:center;align-items:center">
+  <div class="kicker">Конец презентации</div>
+  <h1 class="mb">Спасибо за внимание!</h1>
+  <p class="lead" style="margin-left:auto;margin-right:auto">Вопрос для обсуждения: какой учебник лучше помогает понять, почему 1916 год стал переломным для казахского народа, и почему?</p>
+  <div class="legend" style="justify-content:center">
+   <span class="tag a">Учебник А · стр. 5–48</span>
+   <span class="tag b">Учебник Б · стр. 7–27</span>
+  </div>
+  <p class="tiny mt">Все факты и цифры взяты из присланных страниц двух учебников «История Казахстана», 8 класс.</p>
+ </div>
+</section>
+
+</main>
+
+<nav class="nav" aria-label="Навигация по слайдам">
+ <div class="t" id="navTitle">История Казахстана · 8 класс</div>
+ <div class="c">
+  <button class="btn" id="prev" type="button" aria-label="Предыдущий слайд">←</button>
+  <span class="count" id="count">1 / 1</span>
+  <button class="btn" id="next" type="button" aria-label="Следующий слайд">→</button>
+ </div>
+ <div class="r">
+  <button class="btn" id="theme" type="button" aria-label="Сменить тему" title="Светлая/тёмная тема">◐</button>
+  <button class="btn" id="fs" type="button" aria-label="Полный экран" title="Полный экран (F)">⛶</button>
+ </div>
+</nav>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var cur=0, n=slides.length;
+  var prog=document.getElementById('progress'), cnt=document.getElementById('count');
+  var title=document.getElementById('navTitle');
+  var prevB=document.getElementById('prev'), nextB=document.getElementById('next');
+
+  function go(i){
+    i=Math.max(0,Math.min(n-1,i));
+    slides.forEach(function(s,k){
+      s.classList.toggle('active',k===i);
+      s.classList.toggle('past',k<i);
+      s.setAttribute('aria-hidden',k===i?'false':'true');
+    });
+    cur=i;
+    slides[i].scrollTop=0;
+    cnt.textContent=(i+1)+' / '+n;
+    prog.style.width=((i+1)/n*100)+'%';
+    title.textContent='История Казахстана · 8 класс — '+(slides[i].dataset.title||'');
+    prevB.disabled=i===0; nextB.disabled=i===n-1;
+    if(location.hash!=='#'+(i+1)){ try{history.replaceState(null,'','#'+(i+1));}catch(e){} }
+  }
+  prevB.onclick=function(){go(cur-1)};
+  nextB.onclick=function(){go(cur+1)};
+
+  document.addEventListener('keydown',function(e){
+    if(e.altKey||e.ctrlKey||e.metaKey) return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||(k===' '&&e.target.tagName!=='BUTTON')){e.preventDefault();go(cur+1);}
+    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(k==='Home'){go(0);}
+    else if(k==='End'){go(n-1);}
+    else if(k==='f'||k==='F'||k==='а'||k==='А'){toggleFs();}
+  });
+
+  var sx=0, sy=0;
+  document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4){ go(cur+(dx<0?1:-1)); }
+  },{passive:true});
+
+  function toggleFs(){
+    var d=document;
+    if(!d.fullscreenElement){ (d.documentElement.requestFullscreen||function(){}).call(d.documentElement); }
+    else { d.exitFullscreen(); }
+  }
+  document.getElementById('fs').onclick=toggleFs;
+
+  var root=document.documentElement;
+  try{ var saved=localStorage.getItem('kz8-theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
+  document.getElementById('theme').onclick=function(){
+    var dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    var t=dark?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{ localStorage.setItem('kz8-theme',t); }catch(e){}
+  };
+
+  // quiz
+  [].forEach.call(document.querySelectorAll('.q button'),function(b){
+    b.onclick=function(){ var q=b.parentNode; q.classList.toggle('open'); b.textContent=q.classList.contains('open')?'Скрыть ответ':'Показать ответ'; };
+  });
+
+  // chart tooltips
+  var tip=document.getElementById('tip');
+  function show(el,x,y){ tip.textContent=el.dataset.tip; tip.classList.add('on'); place(x,y); }
+  function place(x,y){ var w=tip.offsetWidth, h=tip.offsetHeight; var left=Math.min(window.innerWidth-w-8,x+14), top=y-h-12; if(top<8) top=y+16; tip.style.left=left+'px'; tip.style.top=top+'px'; }
+  [].forEach.call(document.querySelectorAll('.hit'),function(row){
+    row.addEventListener('mouseenter',function(e){show(row,e.clientX,e.clientY);});
+    row.addEventListener('mousemove',function(e){place(e.clientX,e.clientY);});
+    row.addEventListener('mouseleave',function(){tip.classList.remove('on');});
+    row.addEventListener('focus',function(){ var r=row.querySelector('.track').getBoundingClientRect(); show(row,r.left+r.width/2,r.top); });
+    row.addEventListener('blur',function(){tip.classList.remove('on');});
+  });
+
+  var start=parseInt((location.hash||'').slice(1),10);
+  go(isNaN(start)?0:start-1);
+})();
+</script>
+</body>
+</html>
