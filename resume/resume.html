@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Резюме — Омаров Алдияр Ғаниұлы</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --accent: #1f4e5f;
+    --accent-soft: #e8f0f2;
+    --text: #1d2327;
+    --muted: #5b6770;
+    --line: #d5dde1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 210mm; height: 297mm; }
+  body {
+    font-family: "Inter", "DejaVu Sans", sans-serif;
+    color: var(--text);
+    font-size: 10pt;
+    line-height: 1.45;
+    background: #fff;
+  }
+  .page { display: grid; grid-template-columns: 66mm 1fr; height: 297mm; overflow: hidden; }
+
+  /* Sidebar */
+  .side { background: var(--accent); color: #fff; padding: 15mm 8mm 10mm 10mm; }
+  .side h2 {
+    font-size: 9pt; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 700; color: #cfe3e9; margin: 9mm 0 3mm;
+    padding-bottom: 1.6mm; border-bottom: 1px solid rgba(255,255,255,.25);
+  }
+  .side h2:first-child { margin-top: 0; }
+  .contact div { margin-bottom: 2.6mm; }
+  .contact .lbl { display: block; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .1em; color: #a9c7d0; }
+  .contact .val { font-size: 10pt; font-weight: 500; }
+  .side ul { list-style: none; }
+  .side li { padding-left: 4mm; position: relative; margin-bottom: 1.8mm; font-size: 9.5pt; }
+  .side li::before { content: ""; position: absolute; left: 0; top: 2.1mm; width: 1.5mm; height: 1.5mm; background: #8fc1cf; border-radius: 50%; }
+  .lang { display: flex; justify-content: space-between; margin-bottom: 1.8mm; font-size: 9.5pt; }
+  .lang span:last-child { color: #cfe3e9; }
+
+  /* Main */
+  .main { padding: 14mm 14mm 10mm 12mm; }
+  .name { font-size: 25pt; line-height: 1.1; font-weight: 800; color: var(--accent); letter-spacing: -.01em; }
+  .name .first { display: block; font-weight: 300; color: var(--text); }
+  .role { margin-top: 3mm; font-size: 11.5pt; font-weight: 600; color: var(--muted); }
+  .main h2 {
+    font-size: 10.5pt; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 800; margin: 6.5mm 0 3mm;
+    display: flex; align-items: center; gap: 3mm;
+  }
+  .main h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .about { color: var(--text); }
+
+  .item { margin-bottom: 3.8mm; break-inside: avoid; }
+  .item-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .item-title { font-weight: 700; font-size: 10.5pt; }
+  .item-date {
+    flex: none; font-size: 8.5pt; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft); padding: .4mm 2.2mm; border-radius: 1mm; white-space: nowrap;
+  }
+  .item-org { color: var(--muted); font-weight: 500; margin-top: .4mm; }
+  .item ul { margin: 1.5mm 0 0 4.5mm; }
+  .item li { margin-bottom: .8mm; }
+  .item li::marker { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="side">
+    <h2>Контакты</h2>
+    <div class="contact">
+      <div><span class="lbl">Телефон</span><span class="val">+7 708 285 54 76</span></div>
+      <div><span class="lbl">Город</span><span class="val">Астана, Казахстан</span></div>
+    </div>
+
+    <h2>Навыки</h2>
+    <ul>
+      <li>Преподавание истории Казахстана и всемирной истории</li>
+      <li>Планирование уроков и разработка учебных материалов</li>
+      <li>Критериальное оценивание</li>
+      <li>Интерактивные презентации и наглядные материалы</li>
+      <li>Работа с историческими источниками</li>
+      <li>Полевая археология</li>
+      <li>Индивидуальный подход к ученикам</li>
+    </ul>
+
+    <h2>Языки</h2>
+    <div class="lang"><span>Казахский</span><span>родной</span></div>
+    <div class="lang"><span>Русский</span><span>свободно</span></div>
+  </aside>
+
+  <main class="main">
+    <h1 class="name"><span class="first">Алдияр Ғаниұлы</span>Омаров</h1>
+    <div class="role">Преподаватель истории Казахстана и всемирной истории</div>
+
+    <h2>О себе</h2>
+    <p class="about">
+      Преподаю историю Казахстана и всемирную историю с 2020 года. Магистр гуманитарных наук
+      по образовательной программе «Археология». Совмещаю работу в школе с участием
+      в археологических раскопках, поэтому строю уроки на реальных источниках и находках,
+      чтобы ученикам было интересно и понятно.
+    </p>
+
+    <h2>Опыт работы</h2>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Учитель истории Казахстана и всемирной истории</div>
+        <div class="item-date">2025 — н. в.</div>
+      </div>
+      <div class="item-org">Astana DOSTYQ school, Астана</div>
+      <ul>
+        <li>Веду уроки истории Казахстана и всемирной истории.</li>
+        <li>Готовлю поурочные планы, презентации и наглядные материалы.</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Учитель истории</div>
+        <div class="item-date">2024 — 2025</div>
+      </div>
+      <div class="item-org">Назарбаев Интеллектуальная школа (NIS IB), Астана</div>
+      <ul>
+        <li>Преподавал историю в течение 2024–2025 учебного года.</li>
+        <li>Работал по программам школы и системе критериального оценивания.</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Преподаватель истории Казахстана и всемирной истории</div>
+        <div class="item-date">2020 — н. в.</div>
+      </div>
+      <div class="item-org">Образовательный центр «Достык», Астана</div>
+      <ul>
+        <li>Веду групповые и индивидуальные занятия на русском языке.</li>
+        <li>Работаю с учениками разного уровня подготовки.</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Участник археологических раскопок</div>
+        <div class="item-date">2022 — 2026</div>
+      </div>
+      <div class="item-org">НИИ археологии им. К. А. Акишева</div>
+      <ul>
+        <li>Участвовал в полевых работах на археологических памятниках.</li>
+        <li>Помогал с фиксацией и описанием находок.</li>
+      </ul>
+    </div>
+
+    <h2>Образование</h2>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Магистратура, ОП «Археология»</div>
+        <div class="item-date">2023 — 2025</div>
+      </div>
+      <div class="item-org">Евразийский национальный университет им. Л. Н. Гумилёва</div>
+      <div>Степень: магистр гуманитарных наук</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <div class="item-title">Бакалавриат, ОП «История»</div>
+        <div class="item-date">2019 — 2023</div>
+      </div>
+      <div class="item-org">Евразийский национальный университет им. Л. Н. Гумилёва</div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
