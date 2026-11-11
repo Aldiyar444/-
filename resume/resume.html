@@ -30,7 +30,8 @@
     font-weight: 700; color: #cfe3e9; margin: 9mm 0 3mm;
     padding-bottom: 1.6mm; border-bottom: 1px solid rgba(255,255,255,.25);
   }
-  .side h2:first-child { margin-top: 0; }
+    .photo { display: block; width: 46mm; height: 57.5mm; object-fit: cover; border-radius: 2mm;
+    border: 1mm solid rgba(255,255,255,.18); margin-bottom: 8mm; }
   .contact div { margin-bottom: 2.6mm; }
   .contact .lbl { display: block; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .1em; color: #a9c7d0; }
   .contact .val { font-size: 10pt; font-weight: 500; }
@@ -69,7 +70,8 @@
 <body>
 <div class="page">
   <aside class="side">
-    <h2>Контакты</h2>
+    <img class="photo" src="photo.jpg" alt="Фото">
+    <h2 style="margin-top:0">Контакты</h2>
     <div class="contact">
       <div><span class="lbl">Телефон</span><span class="val">+7 708 285 54 76</span></div>
       <div><span class="lbl">Город</span><span class="val">Астана, Казахстан</span></div>
