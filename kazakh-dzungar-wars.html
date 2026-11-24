@@ -8,6 +8,7 @@
    Colours borrow from the Kazakh flag (sky, gold) set against a deep night; ember marks the Dzungar raids. */
 :root {
   color-scheme: dark;
+  --k: 1;
   --night: #0C1422;
   --panel: #142036;
   --panel-2: #1A2A45;
@@ -44,11 +45,14 @@ button { font: inherit; color: inherit; }
   display: flex; justify-content: space-between; align-items: center; gap: 12px; pointer-events: none;
   background: linear-gradient(var(--night) 40%, rgba(12, 20, 34, 0)); }
 .brand { font-family: var(--display); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zoom { display: flex; align-items: center; gap: 6px; }
+.zval { font-family: var(--display); font-size: 12px; color: var(--muted); min-width: 40px; text-align: center; font-variant-numeric: tabular-nums; }
 .tb-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
 .fsbtn { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); display: inline-flex; gap: 6px; align-items: center; }
+.fsbtn:disabled { opacity: .35; cursor: default; }
 .fsbtn:hover { border-color: var(--sky); }
 @media (max-width: 600px) { .fsbtn span { display: none; } }
-.toast { position: fixed; z-index: 60; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 64px); transform: translateX(-50%); background: var(--panel-2); border: 1px solid var(--gold); border-radius: 12px; padding: 12px 18px; font-size: 15px; box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: calc(100vw - 32px); }
+.toast { position: fixed; z-index: 60; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 64px); transform: translateX(-50%); background: var(--panel-2); border: 1px solid var(--gold); border-radius: 12px; padding: 12px 18px; font-size: calc(15px * var(--k)); box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: calc(100vw - 32px); }
 .counter { font-family: var(--display); font-size: 13px; color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .navbar { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0;
   padding: 10px max(20px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 14px) max(20px, env(safe-area-inset-left, 0px));
@@ -56,7 +60,7 @@ button { font: inherit; color: inherit; }
   background: linear-gradient(rgba(12, 20, 34, 0), var(--night) 55%); }
 .progress { flex: 1; height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; }
 .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--sky), var(--gold)); transition: width .5s; }
-.navbtn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); cursor: pointer; display: grid; place-items: center; font-size: 20px; transition: background .2s, border-color .2s; }
+.navbtn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); cursor: pointer; display: grid; place-items: center; font-size: calc(20px * var(--k)); transition: background .2s, border-color .2s; }
 .navbtn:hover { background: var(--panel-2); border-color: var(--sky); }
 .navbtn:disabled { opacity: .35; cursor: default; }
 .dots { display: flex; gap: 6px; flex-wrap: wrap; max-width: 46%; }
@@ -72,15 +76,15 @@ button { font: inherit; color: inherit; }
 .slide.active { opacity: 1; visibility: visible; transform: none; transition: opacity .55s ease, transform .55s ease, visibility 0s; }
 .wrap { max-width: 1320px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; justify-content: center; gap: clamp(18px, 2.6vh, 32px); }
 
-.eyebrow { font-family: var(--display); font-size: clamp(12px, 1.05vw, 15px); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.eyebrow { font-family: var(--display); font-size: calc(clamp(12px, 1.05vw, 15px) * var(--k)); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
 h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.08; }
-h1 { font-size: clamp(38px, 6.4vw, 96px); font-weight: 800; letter-spacing: -.01em; }
-h2 { font-size: clamp(28px, 3.7vw, 54px); font-weight: 600; }
-h3 { font-size: clamp(19px, 1.6vw, 24px); font-weight: 600; line-height: 1.2; }
-p, li { font-size: clamp(17px, 1.45vw, 22px); line-height: 1.5; margin: 0; }
-.lead { font-size: clamp(19px, 1.75vw, 27px); color: var(--muted); max-width: 62ch; }
+h1 { font-size: calc(clamp(38px, 6.4vw, 96px) * var(--k)); font-weight: 800; letter-spacing: -.01em; }
+h2 { font-size: calc(clamp(28px, 3.7vw, 54px) * var(--k)); font-weight: 600; }
+h3 { font-size: calc(clamp(19px, 1.6vw, 24px) * var(--k)); font-weight: 600; line-height: 1.2; }
+p, li { font-size: calc(clamp(17px, 1.45vw, 22px) * var(--k)); line-height: 1.5; margin: 0; }
+.lead { font-size: calc(clamp(19px, 1.75vw, 27px) * var(--k)); color: var(--muted); max-width: 62ch; }
 .muted { color: var(--muted); }
-.small { font-size: clamp(15px, 1.15vw, 18px); line-height: 1.5; }
+.small { font-size: calc(clamp(15px, 1.15vw, 18px) * var(--k)); line-height: 1.5; }
 ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 ul.clean li { padding-left: 26px; position: relative; }
 ul.clean li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 9px; height: 9px; transform: rotate(45deg); background: var(--gold); }
@@ -99,10 +103,10 @@ b, strong { color: #fff; font-weight: 600; }
 .card.kz-card { border-top: 4px solid var(--sky); }
 .card.dz-card { border-top: 4px solid var(--ember); }
 .card.au-card { border-top: 4px solid var(--gold); }
-.tag { font-family: var(--display); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
-.num { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 4vw, 64px); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.tag { font-family: var(--display); font-size: calc(12px * var(--k)); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.num { font-family: var(--display); font-weight: 800; font-size: calc(clamp(34px, 4vw, 64px) * var(--k)); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
 .num.kz { color: var(--sky); } .num.dz { color: var(--ember); }
-.quote { border-left: 4px solid var(--gold); padding: 6px 0 6px 22px; font-style: italic; font-size: clamp(19px, 1.7vw, 26px); line-height: 1.5; }
+.quote { border-left: 4px solid var(--gold); padding: 6px 0 6px 22px; font-style: italic; font-size: calc(clamp(19px, 1.7vw, 26px) * var(--k)); line-height: 1.5; }
 .quote cite { display: block; margin-top: 8px; font-style: normal; font-size: .72em; color: var(--muted); }
 .note { background: var(--gold-soft); border: 1px solid rgba(233, 185, 73, .35); border-radius: 14px; padding: 16px 20px; }
 
@@ -127,20 +131,20 @@ b, strong { color: #fff; font-weight: 600; }
 .sim { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr); gap: 20px; align-items: stretch; }
 @media (max-width: 980px) { .sim { grid-template-columns: minmax(0, 1fr); } }
 .sim-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.sim-year { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5vw, 76px); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
-.sim-title { font-family: var(--display); font-size: clamp(19px, 1.7vw, 25px); font-weight: 600; line-height: 1.2; }
+.sim-year { font-family: var(--display); font-weight: 800; font-size: calc(clamp(44px, 5vw, 76px) * var(--k)); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.sim-title { font-family: var(--display); font-size: calc(clamp(19px, 1.7vw, 25px) * var(--k)); font-weight: 600; line-height: 1.2; }
 .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.btn { border: 1px solid var(--line); background: var(--panel-2); border-radius: 999px; padding: 10px 18px; cursor: pointer; font-weight: 600; font-size: 15px; transition: background .2s, border-color .2s, transform .1s; display: inline-flex; align-items: center; gap: 8px; }
+.btn { border: 1px solid var(--line); background: var(--panel-2); border-radius: 999px; padding: 10px 18px; cursor: pointer; font-weight: 600; font-size: calc(15px * var(--k)); transition: background .2s, border-color .2s, transform .1s; display: inline-flex; align-items: center; gap: 8px; }
 .btn:hover { border-color: var(--sky); }
 .btn:active { transform: scale(.97); }
 .btn.primary { background: var(--sky); color: #08202B; border-color: var(--sky); }
 .btn.primary:hover { background: #63C8E6; }
 .btn.gold { background: var(--gold); color: #2A1E00; border-color: var(--gold); }
 input[type=range] { width: 100%; accent-color: var(--gold); }
-.ticks { display: flex; flex-wrap: wrap; gap: 2px 6px; justify-content: space-between; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; font-family: var(--display); }
-.ticks button { background: none; border: none; padding: 2px; cursor: pointer; color: var(--muted); font-size: 12px; }
+.ticks { display: flex; flex-wrap: wrap; gap: 2px 6px; justify-content: space-between; font-size: calc(12px * var(--k)); color: var(--muted); font-variant-numeric: tabular-nums; font-family: var(--display); }
+.ticks button { background: none; border: none; padding: 2px; cursor: pointer; color: var(--muted); font-size: calc(12px * var(--k)); }
 .ticks button.on { color: var(--gold); }
-.legend { display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.legend { display: grid; gap: 8px; font-size: calc(14px * var(--k)); color: var(--muted); }
 .legend div { display: flex; align-items: center; gap: 10px; }
 .legend i { width: 30px; height: 4px; border-radius: 3px; flex: none; }
 .legend i.dash { background: repeating-linear-gradient(90deg, var(--sky) 0 6px, transparent 6px 10px) !important; }
@@ -154,21 +158,21 @@ input[type=range] { width: 100%; accent-color: var(--gold); }
 .cover-inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 22px; max-width: 900px; }
 .cover-inner h1 span { display: block; color: var(--gold); }
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }
-.chip { border: 1px solid var(--line); background: rgba(20, 32, 54, .8); border-radius: 999px; padding: 8px 16px; font-size: 15px; color: var(--muted); }
+.chip { border: 1px solid var(--line); background: rgba(20, 32, 54, .8); border-radius: 999px; padding: 8px 16px; font-size: calc(15px * var(--k)); color: var(--muted); }
 .chip b { font-family: var(--display); color: var(--gold); font-weight: 600; margin-right: 6px; }
-.hint { font-size: 14px; color: var(--muted); }
-kbd { font-family: var(--display); font-size: 12px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 2px 7px; background: var(--panel); }
+.hint { font-size: calc(14px * var(--k)); color: var(--muted); }
+kbd { font-family: var(--display); font-size: calc(12px * var(--k)); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 2px 7px; background: var(--panel); }
 
 /* statement */
 .statement { background: radial-gradient(1200px 600px at 20% 30%, rgba(236, 97, 66, .18), transparent 60%), var(--night); }
-.big-kz { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 5.6vw, 88px); line-height: 1.05; color: var(--text); text-wrap: balance; }
+.big-kz { font-family: var(--display); font-weight: 800; font-size: calc(clamp(34px, 5.6vw, 88px) * var(--k)); line-height: 1.05; color: var(--text); text-wrap: balance; }
 .big-kz em { font-style: normal; color: var(--ember); }
 
 /* figures */
 figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 figure img { width: 100%; border-radius: 12px; object-fit: cover; background: var(--panel-2); display: block; }
-figcaption { font-size: 13px; color: var(--muted); line-height: 1.4; }
-.ph { display: grid; place-items: center; background: repeating-linear-gradient(45deg, var(--panel-2) 0 10px, var(--panel) 10px 20px); color: var(--muted); font-family: var(--display); font-size: 28px; border-radius: 12px; }
+figcaption { font-size: calc(13px * var(--k)); color: var(--muted); line-height: 1.4; }
+.ph { display: grid; place-items: center; background: repeating-linear-gradient(45deg, var(--panel-2) 0 10px, var(--panel) 10px 20px); color: var(--muted); font-family: var(--display); font-size: calc(28px * var(--k)); border-radius: 12px; }
 
 /* heroes */
 .heroes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
@@ -180,23 +184,23 @@ figcaption { font-size: 13px; color: var(--muted); line-height: 1.4; }
 .hero .pic { aspect-ratio: 1 / 1.02; width: 100%; object-fit: cover; object-position: center 20%; display: block; }
 .hero .pic.ph { display: grid; place-items: center; }
 .hero .cap { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; }
-.hero .nm { font-family: var(--display); font-size: clamp(14px, 1.2vw, 17px); font-weight: 600; }
-.hero .rl { font-size: 13px; color: var(--muted); }
-.hero .role-kz { color: var(--sky); font-size: 11px; font-family: var(--display); letter-spacing: .14em; text-transform: uppercase; }
+.hero .nm { font-family: var(--display); font-size: calc(clamp(14px, 1.2vw, 17px) * var(--k)); font-weight: 600; }
+.hero .rl { font-size: calc(13px * var(--k)); color: var(--muted); }
+.hero .role-kz { color: var(--sky); font-size: calc(11px * var(--k)); font-family: var(--display); letter-spacing: .14em; text-transform: uppercase; }
 .modal { position: fixed; inset: 0; z-index: 50; background: rgba(5, 9, 16, .78); display: grid; place-items: center; padding: 20px max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px)); }
 .modal-card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; max-width: 820px; width: 100%; max-height: 90vh; overflow: auto; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
 @media (max-width: 680px) { .modal-card { grid-template-columns: minmax(0, 1fr); } }
 .modal-card img, .modal-card .ph { width: 100%; height: 100%; min-height: 260px; object-fit: cover; }
 .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
-.modal-body .src { font-size: 12px; color: var(--muted); }
+.modal-body .src { font-size: calc(12px * var(--k)); color: var(--muted); }
 
 /* tactics canvas */
 .tactic-wrap { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, .8fr); gap: 20px; }
 @media (max-width: 980px) { .tactic-wrap { grid-template-columns: minmax(0, 1fr); } }
 canvas { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--line); background: #1B2A1F; }
 .phases { display: grid; gap: 6px; }
-.phase { display: flex; gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 10px; color: var(--muted); font-size: 15px; }
-.phase b { font-family: var(--display); color: var(--muted); font-size: 13px; }
+.phase { display: flex; gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 10px; color: var(--muted); font-size: calc(15px * var(--k)); }
+.phase b { font-family: var(--display); color: var(--muted); font-size: calc(13px * var(--k)); }
 .phase.on { background: var(--panel-2); color: var(--text); }
 .phase.on b { color: var(--gold); }
 
@@ -212,27 +216,27 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
 .quiz { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 860px) { .quiz { grid-template-columns: minmax(0, 1fr); } }
 .q { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-.q h3 { font-size: clamp(16px, 1.3vw, 20px); }
+.q h3 { font-size: calc(clamp(16px, 1.3vw, 20px) * var(--k)); }
 .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.opt { border: 1px solid var(--line); background: var(--panel-2); border-radius: 10px; padding: 10px 12px; text-align: left; cursor: pointer; font-size: 15px; }
+.opt { border: 1px solid var(--line); background: var(--panel-2); border-radius: 10px; padding: 10px 12px; text-align: left; cursor: pointer; font-size: calc(15px * var(--k)); }
 .opt:hover:not(:disabled) { border-color: var(--sky); }
 .opt.right { background: rgba(63, 184, 220, .22); border-color: var(--sky); }
 .opt.wrong { background: var(--ember-soft); border-color: var(--ember); }
 .opt:disabled { cursor: default; }
-.qfb { font-size: 14px; color: var(--muted); min-height: 1.4em; }
-.score { font-family: var(--display); color: var(--gold); font-size: 18px; }
+.qfb { font-size: calc(14px * var(--k)); color: var(--muted); min-height: 1.4em; }
+.score { font-family: var(--display); color: var(--gold); font-size: calc(18px * var(--k)); }
 
 /* timeline strip */
 .tl { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; position: relative; }
 .tl::before { content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 3px; background: linear-gradient(90deg, var(--ember), var(--gold), var(--sky)); border-radius: 3px; }
 .tl div { position: relative; padding: 32px 8px 0 0; display: flex; flex-direction: column; gap: 6px; }
 .tl div::before { content: ""; position: absolute; top: 4px; left: 0; width: 17px; height: 17px; border-radius: 50%; background: var(--night); border: 3px solid var(--gold); }
-.tl b { font-family: var(--display); color: var(--gold); font-size: clamp(16px, 1.5vw, 22px); }
-.tl span { font-size: clamp(13px, 1.05vw, 16px); color: var(--muted); line-height: 1.35; }
+.tl b { font-family: var(--display); color: var(--gold); font-size: calc(clamp(16px, 1.5vw, 22px) * var(--k)); }
+.tl span { font-size: calc(clamp(13px, 1.05vw, 16px) * var(--k)); color: var(--muted); line-height: 1.35; }
 @media (max-width: 900px) { .tl { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; } .tl::before { display: none; } }
 
-.credits { columns: 2; column-gap: 32px; font-size: 13px; color: var(--muted); }
-.credits p { font-size: 13px; break-inside: avoid; margin-bottom: 10px; line-height: 1.45; }
+.credits { columns: 2; column-gap: 32px; font-size: calc(13px * var(--k)); color: var(--muted); }
+.credits p { font-size: calc(13px * var(--k)); break-inside: avoid; margin-bottom: 10px; line-height: 1.45; }
 .credits a { color: var(--sky); }
 @media (max-width: 760px) { .credits { columns: 1; } }
 
@@ -245,6 +249,11 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
 <div class="topbar">
   <div class="brand">Казахско-джунгарские войны · XVIII век</div>
   <div class="tb-right">
+    <div class="zoom" role="group" aria-label="Размер шрифта">
+      <button class="fsbtn" id="fMinus" aria-label="Уменьшить шрифт" title="Уменьшить шрифт (−)">A−</button>
+      <span class="zval" id="fVal">100%</span>
+      <button class="fsbtn" id="fPlus" aria-label="Увеличить шрифт" title="Увеличить шрифт (+)">A+</button>
+    </div>
     <button class="fsbtn" id="fsBtn" aria-label="Открыть на весь экран" title="На весь экран (F)">⛶ <span>На весь экран</span></button>
     <div class="counter" id="counter">1 / 20</div>
   </div>
@@ -269,8 +278,8 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
         <span class="chip"><b>1728</b>Буланты</span>
         <span class="chip"><b>1730</b>Аныракай</span>
       </div>
-      <div class="controls"><button class="btn gold" id="startFs" style="font-size:18px;padding:14px 26px">▶ Начать показ на весь экран</button></div>
-      <p class="hint">Клавиша <kbd>F</kbd> — полный экран. Листайте стрелками <kbd>←</kbd> <kbd>→</kbd>, пробелом или свайпом. На слайдах с картами нажимайте кнопки, чтобы запустить симуляцию.</p>
+      <div class="controls"><button class="btn gold" id="startFs" style="font-size:calc(18px * var(--k));padding:14px 26px">▶ Начать показ на весь экран</button></div>
+      <p class="hint">Клавиша <kbd>F</kbd> — полный экран, <kbd>+</kbd> и <kbd>−</kbd> — размер шрифта. Листайте стрелками <kbd>←</kbd> <kbd>→</kbd>, пробелом или свайпом. На слайдах с картами нажимайте кнопки, чтобы запустить симуляцию.</p>
     </div>
   </div>
 </section>
@@ -398,7 +407,7 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
     <div class="grid2">
       <div style="display:grid; gap:16px">
         <figure id="figKurultai"></figure>
-        <p class="quote" style="font-size:clamp(17px,1.4vw,21px)">«Если умрём, то с оружием в руках, но не потеряем чести! Робели ли когда-нибудь воины Дешт-и-Кипчака перед врагом?»<cite>— Бокенбай батыр на Каракумском курултае (по Я. П. Гавердовскому)</cite></p>
+        <p class="quote" style="font-size:calc(clamp(17px,1.4vw,21px) * var(--k))">«Если умрём, то с оружием в руках, но не потеряем чести! Робели ли когда-нибудь воины Дешт-и-Кипчака перед врагом?»<cite>— Бокенбай батыр на Каракумском курултае (по Я. П. Гавердовскому)</cite></p>
       </div>
       <div style="display:grid; gap:16px">
       <div class="card au-card">
@@ -422,7 +431,7 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
     <div class="grid2">
       <div style="display:flex; flex-direction:column; gap:22px">
         <p class="eyebrow" style="color:var(--ember)">1723–1727 · Годы Великого бедствия</p>
-        <p class="big-kz" style="font-size:clamp(32px,4.4vw,70px)">«Ақтабан шұбырынды, <em>Алқакөл сұлама</em>»</p>
+        <p class="big-kz" style="font-size:calc(clamp(32px,4.4vw,70px) * var(--k))">«Ақтабан шұбырынды, <em>Алқакөл сұлама</em>»</p>
         <p class="lead">«Брели, пока не стёрли подошвы, упав без сил, лежали вокруг озера». Весной 1723 года, после страшного джута, войска Цэван-Рабдана внезапно ударили по Семиречью и Прииртышью. Пали Сайрам, Ташкент и Туркестан.</p>
         <div class="orn" style="max-width:520px"></div>
       </div>
@@ -521,7 +530,7 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
         <span class="tag">Оружие казахского воина</span>
         <figure id="figWeapons"></figure>
         <div style="overflow-x:auto">
-        <table style="width:100%; border-collapse:collapse; font-size:clamp(15px,1.2vw,18px)">
+        <table style="width:100%; border-collapse:collapse; font-size:calc(clamp(15px,1.2vw,18px) * var(--k))">
           <tbody id="weapons"></tbody>
         </table>
         </div>
@@ -595,9 +604,9 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
     <figure id="figBulanty"></figure>
     <div style="display:grid; gap:16px">
     <div class="grid3">
-      <div class="card kz-card"><span class="num kz" style="font-size:clamp(28px,3vw,48px);white-space:nowrap">≈60&nbsp;000</span><p class="small">воинов объединённого ополчения, вместе с киргизами и каракалпаками</p></div>
-      <div class="card dz-card"><span class="num dz" style="font-size:clamp(28px,3vw,48px);white-space:nowrap">до&nbsp;10&nbsp;000</span><p class="small">джунгарских воинов уничтожено в долине Карасиыр</p></div>
-      <div class="card au-card"><span class="num" style="font-size:clamp(20px,1.9vw,30px)">«Қалмақ қырылған»</span><p class="small">«Место гибели калмыков» — так народ назвал поле битвы</p></div>
+      <div class="card kz-card"><span class="num kz" style="font-size:calc(clamp(28px,3vw,48px) * var(--k));white-space:nowrap">≈60&nbsp;000</span><p class="small">воинов объединённого ополчения, вместе с киргизами и каракалпаками</p></div>
+      <div class="card dz-card"><span class="num dz" style="font-size:calc(clamp(28px,3vw,48px) * var(--k));white-space:nowrap">до&nbsp;10&nbsp;000</span><p class="small">джунгарских воинов уничтожено в долине Карасиыр</p></div>
+      <div class="card au-card"><span class="num" style="font-size:calc(clamp(20px,1.9vw,30px) * var(--k))">«Қалмақ қырылған»</span><p class="small">«Место гибели калмыков» — так народ назвал поле битвы</p></div>
     </div>
     <div class="note"><p><b>Значение:</b> развеян миф о непобедимости джунгар, поднялся дух народа, освобождены северо-западные районы. Наступлению помогла и смерть Цэван-Рабдана в 1727 году.</p></div>
     </div>
@@ -709,7 +718,7 @@ canvas { display: block; width: 100%; height: auto; border-radius: 18px; border:
     <div id="mPic"></div>
     <div class="modal-body">
       <p class="tag" id="mRole"></p>
-      <h2 id="mTitle" style="font-size:clamp(24px,2.6vw,36px)"></h2>
+      <h2 id="mTitle" style="font-size:calc(clamp(24px,2.6vw,36px) * var(--k))"></h2>
       <p class="small muted" id="mYears"></p>
       <p class="small" id="mText"></p>
       <p class="src" id="mSrc"></p>
@@ -847,7 +856,7 @@ function showJuz(k) {
   const j = JUZ[k];
   for (const [kk, p] of Object.entries(juzOpt.juzEls)) { p.style.fill = JUZ[kk].color; p.style.opacity = kk === k ? 1 : .45; }
   const pic = IMG[j.img] ? `<img src="${IMG[j.img]}" alt="${j.bi}" style="width:120px;height:150px;object-fit:cover;border-radius:10px;flex:none">` : '';
-  $('#juzPanel').innerHTML = `<span class="tag">${j.kz}</span><h3 style="font-size:clamp(22px,2vw,30px)">${j.name}</h3>
+  $('#juzPanel').innerHTML = `<span class="tag">${j.kz}</span><h3 style="font-size:calc(clamp(22px,2vw,30px) * var(--k))">${j.name}</h3>
     <div style="display:flex;gap:16px;align-items:flex-start">${pic}<div style="display:grid;gap:8px">
     <p class="small muted">${j.land}</p><p class="small">Бий: <b>${j.bi}</b></p><p class="small">Хан в 1720-х: <b>${j.khan}</b></p></div></div>
     <div class="controls">${Object.entries(JUZ).map(([kk, v]) => `<button class="btn${kk === k ? ' gold' : ''}" data-j="${kk}">${v.name}</button>`).join('')}</div>`;
@@ -1135,6 +1144,9 @@ addEventListener('keydown', e => {
   if (e.target.matches('input, textarea')) return;
   if (['ArrowRight', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.target.matches('button'))) { e.preventDefault(); go(activeIdx + 1); }
   if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(activeIdx - 1); }
+  if (e.key === '+' || e.key === '=') { e.preventDefault(); setK(K + .1); }
+  if (e.key === '-' || e.key === '_') { e.preventDefault(); setK(K - .1); }
+  if (e.key === '0') { e.preventDefault(); setK(1); }
   if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') { e.preventDefault(); toggleFs(); }
   if (e.key === 'Home') go(0); if (e.key === 'End') go(slides.length - 1);
 });
@@ -1145,8 +1157,18 @@ $('#deck').addEventListener('touchend', e => {
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && !e.target.closest('input, canvas, .mapbox')) go(activeIdx + (dx < 0 ? 1 : -1));
   tx0 = null;
 });
+const root = document.documentElement;
+/* font size */
+let K = 1;
+try { K = parseFloat(localStorage.getItem('fontK')) || 1; } catch (e) {}
+function setK(v) {
+  K = Math.round(Math.min(1.8, Math.max(.8, v)) * 10) / 10;
+  root.style.setProperty('--k', K); $('#fVal').textContent = Math.round(K * 100) + '%';
+  $('#fMinus').disabled = K <= .8; $('#fPlus').disabled = K >= 1.8;
+  try { localStorage.setItem('fontK', K); } catch (e) {}
+}
 /* fullscreen */
-const D = document, root = D.documentElement;
+const D = document;
 const isFs = () => !!(D.fullscreenElement || D.webkitFullscreenElement);
 function showToast() { const t = $('#toast'); t.hidden = false; clearTimeout(showToast.t); showToast.t = setTimeout(() => t.hidden = true, 4000); }
 function enterFs() {
@@ -1159,6 +1181,8 @@ function toggleFs() { isFs() ? exitFs() : enterFs(); }
 function syncFs() { const on = isFs(); $('#fsBtn').innerHTML = on ? '✕ <span>Выйти из полноэкранного</span>' : '⛶ <span>На весь экран</span>'; $('#fsBtn').setAttribute('aria-label', on ? 'Выйти из полноэкранного режима' : 'Открыть на весь экран'); }
 D.addEventListener('fullscreenchange', syncFs); D.addEventListener('webkitfullscreenchange', syncFs);
 $('#fsBtn').onclick = toggleFs;
+$('#fMinus').onclick = () => setK(K - .1); $('#fPlus').onclick = () => setK(K + .1);
+setK(K);
 $('#startFs').onclick = () => { if (!isFs()) enterFs(); go(1); };
 const fromHash = () => { const m = location.hash.match(/^#slide-(\d+)$/); return m ? +m[1] - 1 : 0; };
 addEventListener('hashchange', () => go(fromHash(), true));
